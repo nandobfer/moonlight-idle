@@ -126,4 +126,14 @@ export class Player {
 
         this.render()
     }
+
+    handleIdle(timestamp: string) {
+        const now = new Date()
+        const closed = new Date(Number(timestamp))
+        const elapsed_time = (now.getTime() - closed.getTime()) / 1000
+
+        const attacks = elapsed_time / this.current.attack_speed
+        this.attack(10 * attacks)
+        return elapsed_time
+    }
 }
