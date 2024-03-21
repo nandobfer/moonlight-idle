@@ -13,7 +13,7 @@ export class Player {
     stats: Stats = {
         armor: 0,
         attack_power: 10,
-        attack_speed: 5,
+        attack_speed: 0.5,
         magical_power: 10,
         cooldown_reduction: 0,
         critical_chance: 10,
@@ -36,7 +36,7 @@ export class Player {
 
     points = {
         attributes: 0,
-        skills: 0
+        skills: 0,
     }
 
     accumulated_exp = 0
@@ -94,6 +94,7 @@ export class Player {
     }
 
     levelUp() {
+        this.experience = this.experience - this.getNextLevelExp()
         this.level += 1
         this.points.attributes += 5
         this.points.skills += 1
