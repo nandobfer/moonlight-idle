@@ -28,7 +28,11 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         const data = await AsyncStorage.getItem("player")
         if (data) {
             const player_data: Player = JSON.parse(data)
-            setPlayer(new Player(reRender, player_data))
+            try {
+                setPlayer(new Player(reRender, player_data))
+            } catch (error) {
+                setPlayer(new Player(reRender))
+            }
         } else {
             setPlayer(new Player(reRender))
         }
@@ -46,8 +50,8 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     }, [player])
 
     useEffect(() => {
-        // loadPlayer()
-        setPlayer(new Player(reRender))
+        loadPlayer()
+        // setPlayer(new Player(reRender))
     }, [])
 
     return <PlayerContext.Provider value={{ player, setPlayer }}>{children}</PlayerContext.Provider>

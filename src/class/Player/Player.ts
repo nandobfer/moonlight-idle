@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { WithoutFunctions } from "../../types/helpers"
 import { Attributes } from "../../types/player/attributes"
 import { Stats } from "../../types/player/stats"
+import { fixedNumber } from "../../tools/fixedNumber"
 
 export type PlayerData = WithoutFunctions<Player>
 
@@ -109,14 +110,22 @@ export class Player {
         this.render()
     }
 
+    getUpdatedStats(attributes: Attributes) {
+        const stats = { ...this.stats }
+
+        stats.attack_power = fixedNumber(this.stats.attack_power + attributes.strenght * 0.5)
+        stats.attack_speed = fixedNumber(this.stats.attack_speed + attributes.dexterity * 0.01)
+        stats.critical_chance = fixedNumber(this.stats.critical_chance + attributes.dexterity * 0.1)
+        stats.health = fixedNumber(this.stats.health + attributes.stamina * 0.5)
+        stats.mana = fixedNumber(this.stats.mana + attributes.inteligence * 0.5)
+
+        return stats
+    }
+
     updateAttributes(data: Attributes) {
         this.attributes = data
+        this.stats = this.getUpdatedStats(data)
 
-        this.current.attack_power = this.stats.attack_power + this.attributes.strenght * 0.01
-        this.current.attack_speed = this.stats.attack_speed + this.attributes.dexterity * 0.01
-        this.current.critical_chance = this.stats.critical_chance + this.attributes.dexterity * 0.002
-        this.current.health = this.stats.health + this.attributes.stamina * 0.01
-        this.current.mana = this.stats.mana + this.attributes.inteligence * 0.01
         this.render()
     }
 }
