@@ -7,9 +7,9 @@ import { SlashAnimation } from "../../components/SlashAnimation";
 
 export const TrainingScreen: React.FC<{}> = () => {
     return (
-        <Surface elevation={0} style={{ flex: 1, position: "relative", alignItems: "center", padding: 20 }}>
+        <Surface elevation={0} style={{ flex: 1, position: "relative", justifyContent: "center", alignItems: "center", padding: 20 }}>
             <Image source={images.dummy[1]} style={{ width: 300, height: 400 }} />
             <SlashAnimation />
         </Surface>
-    );
+    )
 };
