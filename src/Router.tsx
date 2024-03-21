@@ -1,51 +1,37 @@
-import React, { useRef } from "react"
-import { NavigationContainer, NavigationContainerRef, DarkTheme as NavigationDarkTheme } from "@react-navigation/native"
-import { NativeStackNavigationOptions, createNativeStackNavigator } from "@react-navigation/native-stack"
+import React, { useState } from "react"
 import { Text } from "react-native"
 import constants from "expo-constants"
-import schema from "./style/colors.json"
+import { BottomNavigation, Surface } from "react-native-paper"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { usePlayer } from "./hooks/usePlayer"
 import { Home } from "./screens/Home/Home"
-import { Surface } from "react-native-paper"
-import AppBar from "./components/AppBar/AppBar"
 import { SkillsScreen } from "./screens/SkillsScreen/SkillsScreen"
 
 interface RoutesProps {}
 
 export const Routes: React.FC<RoutesProps> = ({}) => {
-    const navigator_ref = useRef<NavigationContainerRef<ReactNavigation.RootParamList>>(null)
-    const Stack = createNativeStackNavigator()
-    const navigator_options: NativeStackNavigationOptions = {
-        headerStyle: {
-            backgroundColor: "red",
-        },
-        headerTintColor: "white",
-        headerTitleStyle: {
-            fontWeight: "bold",
-        },
-        headerTitleAlign: "center",
-        animation: "slide_from_right",
-        headerShown: false,
-    }
+    const { bottom } = useSafeAreaInsets()
+    const player = usePlayer()
 
-    const home_header_options = {
-        title: "Casa Lúdica alguma coisa",
-        headerShown: false,
-    }
+    const [index, setIndex] = useState(0)
+    const [routes, setRoutes] = useState([
+        { key: "home", title: "training", focusedIcon: "bullseye-arrow", unfocusedIcon: "bullseye-arrow" },
+        { key: "skills", title: "skills", focusedIcon: "sitemap", unfocusedIcon: "sitemap" },
+    ])
 
-    const CombinedDarkTheme = {
-        ...NavigationDarkTheme,
-        colors: { ...NavigationDarkTheme.colors, ...schema.colors },
-    }
+    const renderScene = BottomNavigation.SceneMap({ home: Home, skills: SkillsScreen })
 
     return (
         <Surface elevation={0} style={{ flex: 1 }}>
-            <AppBar navigator_ref={navigator_ref} />
-            {/* <NavigationContainer theme={CombinedDarkTheme} ref={navigator_ref}>
-                <Stack.Navigator initialRouteName="home" screenOptions={navigator_options}>
-                    <Stack.Screen name={"home"} component={Home} />
-                    <Stack.Screen name={"skills"} component={SkillsScreen} />
-                </Stack.Navigator>
-            </NavigationContainer> */}
+            <BottomNavigation
+                navigationState={{ index, routes }}
+                onIndexChange={setIndex}
+                renderScene={renderScene}
+                sceneAnimationEnabled
+                sceneAnimationType="shifting"
+                safeAreaInsets={{ bottom }}
+                getBadge={({ route }) => (route.key == "skills" && !!player.points.attributes ? player.points.attributes : false)}
+            />
             <Text style={{ position: "absolute", bottom: 5, right: 5, color: "red" }}>{constants.expoConfig?.version}</Text>
         </Surface>
     )
