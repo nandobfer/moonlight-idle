@@ -7,13 +7,14 @@ import { View } from "react-native"
 import Icon from "react-native-vector-icons/FontAwesome6"
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
 import { IconStatusBar } from "../../components/IconStatusBar"
+import { IconNumber } from "../../components/IconNumber"
 
 interface UiProps {
     children?: React.ReactNode
 }
 
 export const Ui: React.FC<UiProps> = ({ children }) => {
-    const text_style = {fontSize: 10}
+    const text_style = { fontSize: 10 }
     const player = usePlayer()
     const [maxExp, setMaxExp] = useState(player.getNextLevelExp())
 
@@ -24,39 +25,8 @@ export const Ui: React.FC<UiProps> = ({ children }) => {
     return (
         <Surface style={{ flex: 1, padding: 20 }} elevation={0}>
             <View style={{ flexDirection: "row", justifyContent: "space-between", position: "relative" }}>
-                <Surface style={{ flex: 0.5, padding: 10, borderRadius: 10, flexDirection: "row", justifyContent: "space-between", opacity: 0.7 }}>
-                    <View style={{ gap: 2 }}>
-                        <Text style={text_style}>level: {player.level}</Text>
-                        <Text style={text_style}>strenght: {player.attributes.strenght}</Text>
-                        <Text style={text_style}>dexterity: {player.attributes.dexterity}</Text>
-                        <Text style={text_style}>inteligence: {player.attributes.inteligence}</Text>
-                        <Text style={text_style}>stamina: {player.attributes.stamina}</Text>
-                    </View>
-                    <View style={{ gap: 2 }}>
-                        <Text style={text_style}>attack power: {player.stats.attack_power}</Text>
-                        <Text style={text_style}>attack speed: {player.stats.attack_speed}</Text>
-                        <Text style={text_style}>magical power: {player.stats.magical_power}</Text>
-                        <Text style={text_style}>cooldown reduction: {player.stats.cooldown_reduction}</Text>
-                        <Text style={text_style}>critical chance: {player.stats.critical_chance}</Text>
-                    </View>
-                </Surface>
-                <Surface
-                    style={{
-                        position: "absolute",
-                        right: 0,
-                        borderRadius: 1000,
-                        minWidth: 50,
-                        height: 50,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        padding: 10,
-                        flexDirection: "row",
-                        gap: 5,
-                    }}
-                >
-                    <Icon name="coins" size={15} color={schema.colors.stamina} />
-                    <Text style={{ color: schema.colors.stamina }}>{player.coin}</Text>
-                </Surface>
+                <IconNumber icon="star-of-david" color={schema.colors.inversePrimary} value={player.level} />
+                <IconNumber icon="coins" color={schema.colors.stamina} value={player.coin} />
             </View>
             {children}
             <Surface style={{ paddingBottom: 5, position: "relative" }}>
@@ -71,7 +41,7 @@ export const Ui: React.FC<UiProps> = ({ children }) => {
                             padding: 10,
                         }}
                     >
-                        <Text style={{ color: schema.colors.primaryContainer, fontWeight: "bold" }}>XP</Text>
+                        <Text style={{ color: schema.colors.inversePrimary, fontWeight: "bold" }}>exp</Text>
                     </Surface>
                 </Surface>
                 <StatusBar value={player.experience} max_value={maxExp} color={schema.colors.inversePrimary} label />
