@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { AppState, Text } from "react-native"
+import { Text } from "react-native"
 import constants from "expo-constants"
 import { BottomNavigation, Surface } from "react-native-paper"
 import { useSafeAreaInsets } from "react-native-safe-area-context"

@@ -2,7 +2,7 @@
   "expo": {
       "name": "moonlighti-dle",
       "slug": "moonlightidle",
-      "owner": "nandobfer",
+      "owner": "nandoburgos",
       "version": "1.0.0",
       "orientation": "portrait",
       "icon": "./assets/icon.png",
@@ -24,11 +24,19 @@
               "monochromeImage": "./assets/icon.png",
               "backgroundColor": "#1d1b1e"
           },
-          "package": "com.nandobfer.moonlightidle"
+          "package": "com.nandoburgos.moonlightidle"
       },
       "web": {
           "favicon": "./assets/favicon.png"
       },
-      "plugins": [["./plugins/withDisableForcedDarkModeAndroid.js", {}]]
+      "plugins": [["./plugins/withDisableForcedDarkModeAndroid.js"]],
+      "extra": {
+          "eas": {
+              "projectId": "a7fd948e-5bc5-437d-832f-dff57beb8f89"
+          }
+      },
+      "updates": {
+          "enabled": false
+      }
   }
 }
