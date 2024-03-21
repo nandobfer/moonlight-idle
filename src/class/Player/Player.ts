@@ -87,12 +87,12 @@ export class Player {
     addExp() {
         this.experience += this.accumulated_exp
         this.accumulated_exp = 0
-        this.save()
 
         if (this.experience >= this.getNextLevelExp()) {
             this.levelUp()
         }
 
+        this.save()
         this.render()
     }
 
@@ -106,8 +106,6 @@ export class Player {
         this.level += 1
         this.points.attributes += 5
         this.points.skills += 1
-        this.save()
-        this.render()
     }
 
     getUpdatedStats(attributes: Attributes) {
