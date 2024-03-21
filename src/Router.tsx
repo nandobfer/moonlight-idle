@@ -7,6 +7,7 @@ import schema from "./style/colors.json"
 import { Home } from "./screens/Home/Home"
 import { Surface } from "react-native-paper"
 import AppBar from "./components/AppBar/AppBar"
+import { SkillsScreen } from "./screens/SkillsScreen/SkillsScreen"
 
 interface RoutesProps {}
 
@@ -38,12 +39,13 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
 
     return (
         <Surface elevation={0} style={{ flex: 1 }}>
-            <NavigationContainer theme={CombinedDarkTheme} ref={navigator_ref}>
+            <AppBar navigator_ref={navigator_ref} />
+            {/* <NavigationContainer theme={CombinedDarkTheme} ref={navigator_ref}>
                 <Stack.Navigator initialRouteName="home" screenOptions={navigator_options}>
                     <Stack.Screen name={"home"} component={Home} />
+                    <Stack.Screen name={"skills"} component={SkillsScreen} />
                 </Stack.Navigator>
-            </NavigationContainer>
-            <AppBar navigator_ref={navigator_ref} />
+            </NavigationContainer> */}
             <Text style={{ position: "absolute", bottom: 5, right: 5, color: "red" }}>{constants.expoConfig?.version}</Text>
         </Surface>
     )

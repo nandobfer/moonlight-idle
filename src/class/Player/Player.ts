@@ -23,6 +23,13 @@ export class Player {
     }
 
     current = {
+        armor: 0,
+        attack_power: 10,
+        attack_speed: 0.5,
+        magical_power: 10,
+        cooldown_reduction: 0,
+        critical_chance: 10,
+        critical_multiplier: 1,
         health: 10,
         mana: 10,
     }
@@ -99,6 +106,17 @@ export class Player {
         this.points.attributes += 5
         this.points.skills += 1
         this.save()
+        this.render()
+    }
+
+    updateAttributes(data: Attributes) {
+        this.attributes = data
+
+        this.current.attack_power = this.stats.attack_power + this.attributes.strenght * 0.01
+        this.current.attack_speed = this.stats.attack_speed + this.attributes.dexterity * 0.01
+        this.current.critical_chance = this.stats.critical_chance + this.attributes.dexterity * 0.002
+        this.current.health = this.stats.health + this.attributes.stamina * 0.01
+        this.current.mana = this.stats.mana + this.attributes.inteligence * 0.01
         this.render()
     }
 }

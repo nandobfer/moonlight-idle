@@ -6,16 +6,14 @@ import { usePlayer } from '../../hooks/usePlayer'
 import { Ui } from './Ui'
 import { TrainingScreen } from './TrainingScreen'
 
-interface HomeProps {
-    navigation: NavigationProp<any, any>
-}
+interface HomeProps {}
 
-export const Home: React.FC<HomeProps> = ({ navigation }) => {
+export const Home: React.FC<HomeProps> = ({}) => {
     const player = usePlayer()
-    
+
     return (
         <Ui>
-            <Surface elevation={0} style={{flex: 1}}>
+            <Surface elevation={0} style={{ flex: 1 }}>
                 <TrainingScreen />
             </Surface>
         </Ui>
