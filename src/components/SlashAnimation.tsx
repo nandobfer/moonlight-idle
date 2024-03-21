@@ -6,7 +6,7 @@ import schema from "../style/colors.json"
 import { usePlayer } from "../hooks/usePlayer"
 
 const AnimatedLine = Animated.createAnimatedComponent(Line)
-const AnimatedText = Animated.createAnimatedComponent(Text)
+// const AnimatedText = Animated.createAnimatedComponent(Text)
 const duration = 1000
 const length = 150
 const maxWidth = 300
@@ -18,8 +18,8 @@ const Slash: React.FC<{ damage: number }> = ({ damage }) => {
     const endX = useSharedValue(0)
     const endY = useSharedValue(0)
     const opacity = useSharedValue(1)
-    const damageOpacity = useSharedValue(1)
-    const damageY = useSharedValue(0)
+    // const damageOpacity = useSharedValue(1)
+    // const damageY = useSharedValue(0)
 
     const randomPosition = () => ({
         x: Math.random() * maxWidth,
@@ -35,11 +35,11 @@ const Slash: React.FC<{ damage: number }> = ({ damage }) => {
         strokeOpacity: opacity.value,
     }))
 
-    const animatedDamageProps = useAnimatedProps(() => ({
-        x: startX.value,
-        y: damageY.value.toString(),
-        fillOpacity: damageOpacity.value.toString(),
-    }))
+    // const animatedDamageProps = useAnimatedProps(() => ({
+    //     x: startX.value,
+    //     y: damageY.value,
+    //     fillOpacity: damageOpacity.value,
+    // }))
 
     const calculateEndPosition = (start: { x: number; y: number }) => {
         const angle = Math.random() * 2 * Math.PI // Random angle in radians
@@ -57,29 +57,30 @@ const Slash: React.FC<{ damage: number }> = ({ damage }) => {
         startY.value = startPos.y
         endX.value = endPos.x
         endY.value = endPos.y
-        damageY.value = startY.value - 20
+        // damageY.value = startY.value - 20
 
         opacity.value = withSequence(
             withTiming(1, { duration: 50 }), // Quickly appear
             withTiming(0, { duration: duration - 50 }) // Then fade out
         )
 
-        damageOpacity.value = withSequence(withTiming(1, { duration: 50 }), withTiming(0, { duration: duration - 50 }))
+        // damageOpacity.value = withSequence(withTiming(1, { duration: 50 }), withTiming(0, { duration: duration - 50 }))
         // damageY.value = withTiming(startPos.y - 50, { duration: duration }) // Float up effect
     }, [])
 
     return (
         <>
             <AnimatedLine animatedProps={animatedSlashProps} stroke={schema.colors.inverseSurface} strokeWidth="2" />
-            <AnimatedText
+            {/* <AnimatedText
                 animatedProps={animatedDamageProps}
                 stroke={schema.colors.inverseSurface}
                 fill={schema.colors.inverseSurface}
                 fontSize="16"
                 y={400}
+                
             >
                 {damage.toString()}
-            </AnimatedText>
+            </AnimatedText> */}
         </>
     )
 }
