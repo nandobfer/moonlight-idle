@@ -17,7 +17,6 @@ const SlashGIF: React.FC<{
     damage: number
     critical: boolean
 }> = ({ gif, sound, damage, critical }) => {
-    // Randomly position the GIF
     const [position, setPosition] = useState({ top: Math.random() * maxHeight, left: Math.random() * maxWidth })
 
     useEffect(() => {
