@@ -30,7 +30,7 @@ export class Player {
         magical_power: 10,
         cooldown_reduction: 0,
         critical_chance: 10,
-        critical_multiplier: 1,
+        critical_multiplier: 2,
         health: 10,
         mana: 10,
     }
@@ -63,6 +63,7 @@ export class Player {
             this.points = data.points
         }
 
+        this.current = this.getUpdatedStats(this.attributes)
         this.save()
     }
 
@@ -70,14 +71,18 @@ export class Player {
         AsyncStorage.setItem("player", JSON.stringify(this))
     }
 
-    attack(multiplier: number) {
+    attack(exp_multiplier: number) {
+        const critical = Math.random() * 100 <= this.current.critical_chance
+        const damage_multiplier = critical ? this.current.critical_multiplier : 1
+
         const min = this.stats.attack_power * 0.6
         const max = this.stats.attack_power * 1.4
-        const damage = Math.floor(Math.random() * (max - min) + min)
+        const damage = Math.floor(Math.random() * (max - min) + min) * damage_multiplier
 
-        this.accumulateExp(damage * multiplier)
+        this.accumulateExp(damage * exp_multiplier)
+        console.log({ damage, critical })
 
-        return damage
+        return { damage, critical }
     }
 
     accumulateExp(exp: number) {
@@ -115,7 +120,7 @@ export class Player {
         const stats = { ...this.stats }
 
         stats.attack_power = fixedNumber(this.stats.attack_power + attributes.strenght * 0.5)
-        stats.attack_speed = fixedNumber(this.stats.attack_speed + attributes.dexterity * 0.01)
+        stats.attack_speed = fixedNumber(this.stats.attack_speed + attributes.dexterity * 0.02)
         stats.critical_chance = fixedNumber(this.stats.critical_chance + attributes.dexterity * 0.1)
         stats.health = fixedNumber(this.stats.health + attributes.stamina * 0.5)
         stats.mana = fixedNumber(this.stats.mana + attributes.inteligence * 0.5)
@@ -125,7 +130,7 @@ export class Player {
 
     updateAttributes(data: Attributes) {
         this.attributes = data
-        this.stats = this.getUpdatedStats(data)
+        this.current = this.getUpdatedStats(data)
 
         this.render()
     }
