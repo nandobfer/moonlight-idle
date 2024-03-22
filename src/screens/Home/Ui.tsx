@@ -13,10 +13,15 @@ interface UiProps {
 export const Ui: React.FC<UiProps> = ({ children }) => {
     const player = usePlayer()
     const [maxExp, setMaxExp] = useState(player.getNeededExp(player.level))
+    const [lastExp, setLastExp] = useState(player.last_exp)
 
     useEffect(() => {
         setMaxExp(player.getNeededExp(player.level))
     }, [player.level])
+
+    useEffect(() => {
+        setLastExp(player.last_exp)
+    }, [player.last_exp])
 
     return (
         <Surface style={{ flex: 1, padding: 20 }} elevation={0}>
@@ -40,6 +45,7 @@ export const Ui: React.FC<UiProps> = ({ children }) => {
                         <Text style={{ color: schema.colors.inversePrimary, fontWeight: "bold" }}>exp</Text>
                     </Surface>
                 </Surface>
+                {!!lastExp && <Text style={{ position: "absolute", top: -35 }}>+ {lastExp}</Text>}
                 <StatusBar value={player.experience} max_value={maxExp} color={schema.colors.inversePrimary} label />
             </Surface>
         </Surface>

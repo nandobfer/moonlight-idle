@@ -49,6 +49,7 @@ export class Player {
     }
 
     accumulated_exp = 0
+    last_exp = 0
 
     dummy = new Dummy(1)
 
@@ -82,7 +83,7 @@ export class Player {
         const min = this.current.attack_power * 0.75
         const max = this.current.attack_power * 1.25
         const damage = Math.floor(Math.random() * (max - min) + min) * damage_multiplier
-        const exp = damage * exp_multiplier
+        const exp = Math.round(damage * exp_multiplier)
 
         this.accumulateExp(exp)
         // console.log({ damage, critical })
@@ -96,6 +97,7 @@ export class Player {
 
     addExp() {
         this.experience += this.accumulated_exp
+        this.last_exp = Math.round(this.accumulated_exp)
         this.accumulated_exp = 0
 
         if (this.experience >= this.getNeededExp(this.level)) {
