@@ -12,7 +12,7 @@ const length = 150
 const maxWidth = 300
 const maxHeight = 400
 
-const Slash: React.FC<{ damage: number }> = ({ damage }) => {
+const Slash: React.FC<{ damage: number; critical: boolean }> = ({ damage, critical }) => {
     const startX = useSharedValue(0)
     const startY = useSharedValue(0)
     const endX = useSharedValue(0)
@@ -70,7 +70,11 @@ const Slash: React.FC<{ damage: number }> = ({ damage }) => {
 
     return (
         <>
-            <AnimatedLine animatedProps={animatedSlashProps} stroke={schema.colors.inverseSurface} strokeWidth="2" />
+            <AnimatedLine
+                animatedProps={animatedSlashProps}
+                stroke={critical ? schema.colors.stamina : schema.colors.inverseSurface}
+                strokeWidth={"2"}
+            />
             {/* <AnimatedText
                 animatedProps={animatedDamageProps}
                 stroke={schema.colors.inverseSurface}
@@ -87,20 +91,20 @@ const Slash: React.FC<{ damage: number }> = ({ damage }) => {
 
 export const SlashAnimation: React.FC<{}> = ({}) => {
     const player = usePlayer()
-    const interval = 1000 / player.stats.attack_speed
+    const interval = 1000 / player.current.attack_speed
     const [slashes, setSlashes] = useState<Array<JSX.Element>>([])
 
     useEffect(() => {
         const timer = setInterval(() => {
-            const damage = player.attack(1)
-            const newSlash = <Slash key={uid(50)} damage={damage} />
+            const { damage, critical } = player.attack(1)
+            const newSlash = <Slash key={uid(50)} damage={damage} critical={critical} />
             setSlashes((slashes) => [...slashes, newSlash])
 
             setTimeout(() => setSlashes((slashes) => slashes.filter((item) => item.key != newSlash.key)), duration + 100)
         }, interval)
 
         return () => clearInterval(timer)
-    }, [interval, duration, player.stats.attack_speed])
+    }, [interval, duration, player.current.attack_speed])
 
     return <Svg style={{ position: "absolute", width: "100%", height: "100%" }}>{slashes}</Svg>
 }
