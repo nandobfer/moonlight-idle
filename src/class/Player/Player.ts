@@ -75,8 +75,8 @@ export class Player {
         const critical = Math.random() * 100 <= this.current.critical_chance
         const damage_multiplier = critical ? this.current.critical_multiplier : 1
 
-        const min = this.stats.attack_power * 0.6
-        const max = this.stats.attack_power * 1.4
+        const min = this.current.attack_power * 0.6
+        const max = this.current.attack_power * 1.4
         const damage = Math.floor(Math.random() * (max - min) + min) * damage_multiplier
 
         this.accumulateExp(damage * exp_multiplier)
