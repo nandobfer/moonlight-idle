@@ -18,7 +18,7 @@ export class Player {
         magical_power: 10,
         cooldown_reduction: 0,
         critical_chance: 10,
-        critical_multiplier: 1,
+        critical_multiplier: 2,
         health: 10,
         mana: 10,
     }
