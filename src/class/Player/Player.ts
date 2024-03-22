@@ -160,11 +160,13 @@ export class Player {
             level += 1
         }
 
-        this.experience += total_exp
+        // this.experience += total_exp
 
         if (level > this.level) {
             this.levelUp(level - this.level)
         }
+
+        this.experience = remaining_exp
 
         return elapsed_time
     }
