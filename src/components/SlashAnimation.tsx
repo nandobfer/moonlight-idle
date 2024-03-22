@@ -7,6 +7,7 @@ import { Image } from "expo-image"
 import { Audio } from "expo-av"
 import { Text } from "react-native-paper"
 import schema from "../style/colors.json"
+import { useRouter } from "../hooks/useRouter"
 
 const maxWidth = 300 // Maximum X-coordinate for the GIF's position
 const maxHeight = 400 // Maximum Y-coordinate for the GIF's position
@@ -17,10 +18,13 @@ const SlashGIF: React.FC<{
     damage: number
     critical: boolean
 }> = ({ gif, sound, damage, critical }) => {
+    const { route } = useRouter()
     const [position, setPosition] = useState({ top: Math.random() * maxHeight, left: Math.random() * maxWidth })
 
     useEffect(() => {
-        sound.playAsync()
+        if (route.key == "home") {
+            sound.playAsync()
+        }
 
         return () => {
             sound.unloadAsync()
