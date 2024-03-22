@@ -4,9 +4,6 @@ import { Surface, Text } from "react-native-paper"
 import { StatusBar } from "../../components/StatusBar"
 import schema from "../../style/colors.json"
 import { View } from "react-native"
-import Icon from "react-native-vector-icons/FontAwesome6"
-import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons"
-import { IconStatusBar } from "../../components/IconStatusBar"
 import { IconNumber } from "../../components/IconNumber"
 
 interface UiProps {
@@ -14,7 +11,6 @@ interface UiProps {
 }
 
 export const Ui: React.FC<UiProps> = ({ children }) => {
-    const text_style = { fontSize: 10 }
     const player = usePlayer()
     const [maxExp, setMaxExp] = useState(player.getNeededExp(player.level))
 

@@ -41,6 +41,7 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
 
     const resetPlayer = () => {
         setPlayer(new Player(reRender))
+        reRender()
     }
 
     useEffect(() => {
