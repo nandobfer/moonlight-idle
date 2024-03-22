@@ -24,8 +24,8 @@ const SlashGIF: React.FC<{ gif: { source: ImageSourcePropType; width: number; he
             <Image
                 source={gif.source}
                 style={{
-                    width: gif.width * 2,
-                    height: gif.height * 2,
+                    width: gif.width * 2.5,
+                    height: gif.height * 2.5,
                     transform: [{ rotate: `${Math.random() * 360}deg` }, { scaleX: Math.random() > 0.5 ? 1 : -1 }],
                 }}
             />
