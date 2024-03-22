@@ -5,20 +5,22 @@ import { usePlayer } from "../hooks/usePlayer"
 import assets from "../assets"
 import { Image } from "expo-image"
 import { Audio } from "expo-av"
+import { Text } from "react-native-paper"
+import schema from "../style/colors.json"
 
 const maxWidth = 300 // Maximum X-coordinate for the GIF's position
 const maxHeight = 400 // Maximum Y-coordinate for the GIF's position
 
-const SlashGIF: React.FC<{ gif: { source: ImageSourcePropType; width: number; height: number }; sound: Audio.Sound }> = ({ gif, sound }) => {
+const SlashGIF: React.FC<{
+    gif: { source: ImageSourcePropType; width: number; height: number }
+    sound: Audio.Sound
+    damage: number
+    critical: boolean
+}> = ({ gif, sound, damage, critical }) => {
     // Randomly position the GIF
-    const [position, setPosition] = useState({ top: 0, left: 0 })
+    const [position, setPosition] = useState({ top: Math.random() * maxHeight, left: Math.random() * maxWidth })
 
     useEffect(() => {
-        setPosition({
-            top: Math.random() * maxHeight,
-            left: Math.random() * maxWidth,
-        })
-
         sound.playAsync()
 
         return () => {
@@ -28,6 +30,9 @@ const SlashGIF: React.FC<{ gif: { source: ImageSourcePropType; width: number; he
 
     return (
         <View style={{ position: "absolute", ...position }}>
+            <Text variant="bodyLarge" style={[{ fontWeight: "bold" }, critical && { color: schema.colors.strength }]}>
+                {damage.toString()}
+            </Text>
             <Image
                 source={gif.source}
                 style={{
@@ -48,7 +53,7 @@ export const SlashAnimation: React.FC<{}> = ({}) => {
 
     useEffect(() => {
         const timer = setInterval(async () => {
-            const { critical } = player.attack(dummy.exp_multiplier)
+            const { critical, damage } = player.attack(dummy.exp_multiplier)
 
             const image = critical ? assets.images.crit : assets.images.attack
             const sound_asset = critical ? assets.sounds.crit[1] : assets.sounds.attack[1]
@@ -58,7 +63,7 @@ export const SlashAnimation: React.FC<{}> = ({}) => {
             const random_index = Math.ceil(Math.random() * max_index)
             // @ts-ignore
             const slashGIF = image[random_index]
-            const newSlash = <SlashGIF key={uid(50)} gif={slashGIF} sound={sound} />
+            const newSlash = <SlashGIF key={uid(50)} gif={slashGIF} sound={sound} damage={damage} critical={critical} />
             setSlashes((slashes) => [...slashes, newSlash])
 
             setTimeout(() => setSlashes((slashes) => slashes.filter((item) => item.key !== newSlash.key)), slashGIF.duration)
