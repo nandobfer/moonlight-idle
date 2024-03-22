@@ -7,9 +7,9 @@ import schema from "../../style/colors.json"
 import { usePlayer } from "../../hooks/usePlayer"
 import { Details } from "./Details"
 
-interface SkillsScreenProps {}
+interface AttributesScreenProps {}
 
-export const SkillsScreen: React.FC<SkillsScreenProps> = ({}) => {
+export const AttributesScreen: React.FC<AttributesScreenProps> = ({}) => {
     const player = usePlayer()
 
     const [tempAttributes, setTempAttributes] = useState({ ...player.attributes })

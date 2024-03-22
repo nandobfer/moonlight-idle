@@ -5,12 +5,14 @@ import { BottomNavigation, Surface } from "react-native-paper"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { usePlayer } from "./hooks/usePlayer"
 import { Home } from "./screens/Home/Home"
-import { SkillsScreen } from "./screens/SkillsScreen/SkillsScreen"
+import { AttributesScreen } from "./screens/AttributesScreen/AttributesScreen"
 import { useAppState } from "@react-native-community/hooks"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useSnackbar } from "./hooks/useSnackbar"
 import { BaseRoute } from "react-native-paper/lib/typescript/components/BottomNavigation/BottomNavigation"
 import { Debug } from "./screens/Debug/Debug"
+import { SkillTree } from "./screens/SkillTree/SkillTree"
+import { Equipment } from "./screens/Equipment/Equipment"
 
 interface RoutesProps {}
 
@@ -25,10 +27,19 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
         { key: "home", title: "training", focusedIcon: "bullseye-arrow", unfocusedIcon: "bullseye-arrow" },
         { key: "attributes", title: "attributes", focusedIcon: "format-list-numbered", unfocusedIcon: "format-list-numbered" },
         { key: "skills", title: "skills", focusedIcon: "sitemap", unfocusedIcon: "sitemap" },
+        { key: "equipment", title: "equips", focusedIcon: "sword", unfocusedIcon: "sword" },
+        { key: "fight", title: "fight", focusedIcon: "fencing", unfocusedIcon: "fencing" },
         { key: "debug", title: "debug", focusedIcon: "console-line", unfocusedIcon: "console-line" },
     ])
 
-    const renderScene = BottomNavigation.SceneMap({ home: Home, attributes: SkillsScreen, skills: SkillsScreen, debug: Debug })
+    const renderScene = BottomNavigation.SceneMap({
+        home: Home,
+        attributes: AttributesScreen,
+        skills: SkillTree,
+        equipment: Equipment,
+        fight: Equipment,
+        debug: Debug,
+    })
 
     const handleIdle = async () => {
         try {
