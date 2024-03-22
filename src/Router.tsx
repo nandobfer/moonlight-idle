@@ -23,11 +23,12 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
     const [index, setIndex] = useState(0)
     const [routes, setRoutes] = useState<BaseRoute[]>([
         { key: "home", title: "training", focusedIcon: "bullseye-arrow", unfocusedIcon: "bullseye-arrow" },
+        { key: "attributes", title: "attributes", focusedIcon: "format-list-numbered", unfocusedIcon: "format-list-numbered" },
         { key: "skills", title: "skills", focusedIcon: "sitemap", unfocusedIcon: "sitemap" },
         { key: "debug", title: "debug", focusedIcon: "console-line", unfocusedIcon: "console-line" },
     ])
 
-    const renderScene = BottomNavigation.SceneMap({ home: Home, skills: SkillsScreen, debug: Debug })
+    const renderScene = BottomNavigation.SceneMap({ home: Home, attributes: SkillsScreen, skills: SkillsScreen, debug: Debug })
 
     const handleIdle = async () => {
         try {
@@ -39,6 +40,17 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
                 await AsyncStorage.setItem("idle", "0")
             }
         } catch (error) {}
+    }
+
+    const getBadge = (key: string) => {
+        switch (key) {
+            case "attributes":
+                return player.points.attributes || false
+            case "skills":
+                return player.points.skills || false
+        }
+
+        return false
     }
 
     useEffect(() => {
@@ -60,7 +72,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
                 sceneAnimationEnabled
                 sceneAnimationType="shifting"
                 safeAreaInsets={{ bottom }}
-                getBadge={({ route }) => (route.key == "skills" && !!player.points.attributes ? player.points.attributes : false)}
+                getBadge={({ route }) => getBadge(route.key)}
             />
             <Text style={{ position: "absolute", bottom: 5, right: 5, color: "red" }}>{constants.expoConfig?.version}</Text>
         </Surface>
