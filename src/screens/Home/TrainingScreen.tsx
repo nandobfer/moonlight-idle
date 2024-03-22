@@ -3,13 +3,20 @@ import { Surface } from "react-native-paper";
 import { Image } from "expo-image";
 import images from "../../images";
 import { SlashAnimation } from "../../components/SlashAnimation";
-
+import { IconNumber } from "../../components/IconNumber"
+import schema from "../../style/colors.json"
+import { usePlayer } from "../../hooks/usePlayer"
 
 export const TrainingScreen: React.FC<{}> = () => {
+    const dummy = usePlayer().dummy
+
     return (
         <Surface elevation={0} style={{ flex: 1, position: "relative", justifyContent: "center", alignItems: "center", padding: 20 }}>
             <Image source={images.dummy[1]} style={{ width: 300, height: 400 }} />
+            <Surface elevation={0} style={{ position: "absolute", right: 50, bottom: 50 }}>
+                <IconNumber color={schema.colors.strength} icon="star" value={dummy.level} />
+            </Surface>
             <SlashAnimation />
         </Surface>
     )
-};
+}

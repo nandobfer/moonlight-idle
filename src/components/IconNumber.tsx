@@ -6,15 +6,16 @@ interface IconNumberProps {
     icon: string
     value: string | number
     color: string
+    size?: number
 }
 
-export const IconNumber: React.FC<IconNumberProps> = ({ icon, value, color }) => {
+export const IconNumber: React.FC<IconNumberProps> = ({ icon, value, color, size = 50 }) => {
     return (
         <Surface
             style={{
                 borderRadius: 1000,
-                minWidth: 50,
-                height: 50,
+                minWidth: size,
+                height: size,
                 justifyContent: "center",
                 alignItems: "center",
                 padding: 10,

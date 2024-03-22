@@ -3,6 +3,7 @@ import { WithoutFunctions } from "../../types/helpers"
 import { Attributes } from "../../types/player/attributes"
 import { Stats } from "../../types/player/stats"
 import { fixedNumber } from "../../tools/fixedNumber"
+import { Dummy } from "../Enemy/Dummy"
 
 export type PlayerData = WithoutFunctions<Player>
 
@@ -49,6 +50,8 @@ export class Player {
 
     accumulated_exp = 0
 
+    dummy = new Dummy(1)
+
     render: () => void
 
     constructor(render: () => void, data?: PlayerData) {
@@ -61,6 +64,7 @@ export class Player {
             this.stats = data.stats
             this.current = data.current
             this.points = data.points
+            this.dummy = data.dummy || new Dummy(1)
         }
 
         this.current = this.getUpdatedStats(this.attributes)
@@ -143,5 +147,10 @@ export class Player {
         const attacks = elapsed_time / this.current.attack_speed
         this.attack(10 * attacks)
         return elapsed_time
+    }
+
+    setNewDummy(dummy: Dummy) {
+        this.dummy = dummy
+        this.save()
     }
 }

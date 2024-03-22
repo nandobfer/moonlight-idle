@@ -91,12 +91,13 @@ const Slash: React.FC<{ damage: number; critical: boolean }> = ({ damage, critic
 
 export const SlashAnimation: React.FC<{}> = ({}) => {
     const player = usePlayer()
+    const dummy = player.dummy
     const interval = 1000 / player.current.attack_speed
     const [slashes, setSlashes] = useState<Array<JSX.Element>>([])
 
     useEffect(() => {
         const timer = setInterval(() => {
-            const { damage, critical } = player.attack(1)
+            const { damage, critical } = player.attack(dummy.exp_multiplier)
             const newSlash = <Slash key={uid(50)} damage={damage} critical={critical} />
             setSlashes((slashes) => [...slashes, newSlash])
 
@@ -104,7 +105,7 @@ export const SlashAnimation: React.FC<{}> = ({}) => {
         }, interval)
 
         return () => clearInterval(timer)
-    }, [interval, duration, player.current.attack_speed])
+    }, [interval, duration, player.current.attack_speed, dummy])
 
     return <Svg style={{ position: "absolute", width: "100%", height: "100%" }}>{slashes}</Svg>
 }
