@@ -80,7 +80,7 @@ export class Player {
         const damage = Math.floor(Math.random() * (max - min) + min) * damage_multiplier
 
         this.accumulateExp(damage * exp_multiplier)
-        console.log({ damage, critical })
+        // console.log({ damage, critical })
 
         return { damage, critical }
     }
