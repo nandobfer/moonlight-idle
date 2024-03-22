@@ -82,11 +82,12 @@ export class Player {
         const min = this.current.attack_power * 0.75
         const max = this.current.attack_power * 1.25
         const damage = Math.floor(Math.random() * (max - min) + min) * damage_multiplier
+        const exp = damage * exp_multiplier
 
-        this.accumulateExp(damage * exp_multiplier)
+        this.accumulateExp(exp)
         // console.log({ damage, critical })
 
-        return { damage, critical }
+        return { damage, critical, exp }
     }
 
     accumulateExp(exp: number) {
@@ -144,9 +145,9 @@ export class Player {
         const closed = new Date(Number(timestamp))
         const elapsed_time = (now.getTime() - closed.getTime()) / 1000
 
-        const attacks = elapsed_time / this.current.attack_speed
-        this.attack(10 * attacks)
-        return elapsed_time
+        const attacks = Math.floor(elapsed_time / this.current.attack_speed)
+        const result = this.attack(this.dummy.exp_multiplier * attacks)
+        return { attacks, elapsed_time, result }
     }
 
     setNewDummy(dummy: Dummy) {
