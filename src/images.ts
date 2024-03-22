@@ -7,8 +7,7 @@ const images = {
         [2]: { source: require("../assets/gifs/slash2.gif"), width: 54, height: 27, duration: 400 },
     },
     crit: {
-        [1]: { source: require("../assets/gifs/crit1.gif"), width: 45, height: 52, duration: 400 },
-        [2]: { source: require("../assets/gifs/crit2.gif"), width: 41, height: 36, duration: 400 },
+        [1]: { source: require("../assets/gifs/crit3.gif"), width: 75, height: 75, duration: 800 },
     },
 }
 
