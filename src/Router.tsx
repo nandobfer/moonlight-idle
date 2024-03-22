@@ -46,8 +46,10 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
             const idle = await AsyncStorage.getItem("idle")
             const closed = JSON.parse(idle || "0")
             if (closed) {
-                const handler = player.handleIdle(closed)
-                snackbar(`while idle, you attacked ${handler.attacks} times for a total of ${handler.result.exp} experience`)
+                const seconds = player.handleIdle(closed)
+                snackbar(
+                    `you was idle for ${Math.floor(seconds / 60 / 60)} hours, ${Math.floor(seconds / 60)} minutes and ${Math.floor(seconds)} seconds`
+                )
                 await AsyncStorage.setItem("idle", "0")
             }
         } catch (error) {}

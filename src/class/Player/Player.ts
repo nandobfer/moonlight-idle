@@ -34,6 +34,7 @@ export class Player {
         critical_multiplier: 2,
         health: 10,
         mana: 10,
+        dps: 0,
     }
 
     attributes: Attributes = {
@@ -124,13 +125,15 @@ export class Player {
     }
 
     getUpdatedStats(attributes: Attributes) {
-        const stats = { ...this.stats }
+        const stats = { ...this.stats, dps: 0 }
 
         stats.attack_power = fixedNumber(this.stats.attack_power + attributes.strenght * 0.5)
         stats.attack_speed = fixedNumber(this.stats.attack_speed + attributes.dexterity * 0.02)
         stats.critical_chance = fixedNumber(this.stats.critical_chance + attributes.dexterity * 0.1)
         stats.health = fixedNumber(this.stats.health + attributes.stamina * 0.5)
         stats.mana = fixedNumber(this.stats.mana + attributes.inteligence * 0.5)
+
+        stats.dps = stats.attack_power * stats.attack_speed * (stats.critical_chance / 100 + 1) * stats.critical_multiplier
 
         return stats
     }
@@ -147,9 +150,23 @@ export class Player {
         const closed = new Date(Number(timestamp))
         const elapsed_time = (now.getTime() - closed.getTime()) / 1000
 
-        const attacks = Math.floor(elapsed_time / this.current.attack_speed)
-        const result = this.attack(this.dummy.exp_multiplier * attacks)
-        return { attacks, elapsed_time, result }
+        const total_damage = elapsed_time * this.current.dps
+        const total_exp = total_damage * this.dummy.exp_multiplier
+
+        let level = this.level
+        let remaining_exp = total_exp
+        while (remaining_exp >= this.getNeededExp(level)) {
+            remaining_exp -= this.getNeededExp(level)
+            level += 1
+        }
+
+        this.experience += total_exp
+
+        if (level > this.level) {
+            this.levelUp(level - this.level)
+        }
+
+        return elapsed_time
     }
 
     setNewDummy(dummy: Dummy) {

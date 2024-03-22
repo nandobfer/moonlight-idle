@@ -12,7 +12,6 @@ export const Details: React.FC<DetailsProps> = ({ attributes }) => {
     const player = usePlayer()
 
     const [stats, setStats] = useState(player.getUpdatedStats(attributes))
-    const dps = stats.attack_power * stats.attack_speed * (stats.critical_chance / 100 + 1) * stats.critical_multiplier
 
     useEffect(() => {
         setStats(player.getUpdatedStats(attributes))
@@ -31,7 +30,7 @@ export const Details: React.FC<DetailsProps> = ({ attributes }) => {
                 <Text>attack speed: {stats.attack_speed} /s</Text>
                 <Text>critical chance: {stats.critical_chance} %</Text>
                 <Text>critical multiplier: x{stats.critical_multiplier}</Text>
-                <Text>damage /s: {Math.round(dps)}</Text>
+                <Text>damage /s: {Math.round(player.current.dps)}</Text>
             </View>
         </Surface>
     )
