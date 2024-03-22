@@ -43,8 +43,8 @@ export class Player {
     }
 
     points = {
-        attributes: 0,
-        skills: 0,
+        attributes: 1,
+        skills: 1,
     }
 
     accumulated_exp = 0
@@ -88,7 +88,7 @@ export class Player {
         this.experience += this.accumulated_exp
         this.accumulated_exp = 0
 
-        if (this.experience >= this.getNextLevelExp()) {
+        if (this.experience >= this.getNeededExp(this.level)) {
             this.levelUp()
         }
 
@@ -96,16 +96,19 @@ export class Player {
         this.render()
     }
 
-    getNextLevelExp() {
-        const experience = Math.pow(this.level * 10, 2)
+    getNeededExp(target_level: number) {
+        const experience = Math.pow(target_level * 10, 2)
         return experience
     }
 
-    levelUp() {
-        this.experience = this.experience - this.getNextLevelExp()
-        this.level += 1
-        this.points.attributes += 5
-        this.points.skills += 1
+    levelUp(quantity = 1) {
+        this.experience = this.experience - this.getNeededExp(this.level + (quantity - 1))
+        this.level += quantity
+        this.points.attributes += quantity
+
+        if (this.level % 5 == 0) {
+            this.points.skills += quantity
+        }
     }
 
     getUpdatedStats(attributes: Attributes) {

@@ -16,10 +16,10 @@ interface UiProps {
 export const Ui: React.FC<UiProps> = ({ children }) => {
     const text_style = { fontSize: 10 }
     const player = usePlayer()
-    const [maxExp, setMaxExp] = useState(player.getNextLevelExp())
+    const [maxExp, setMaxExp] = useState(player.getNeededExp(player.level))
 
     useEffect(() => {
-        setMaxExp(player.getNextLevelExp())
+        setMaxExp(player.getNeededExp(player.level))
     }, [player.level])
 
     return (

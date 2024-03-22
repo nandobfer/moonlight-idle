@@ -10,7 +10,7 @@ export const Snackbar: React.FC<snackbarProps> = ({}) => {
 
     return (
         <Portal>
-            <PaperSnackbar visible={snackbar.visible} onDismiss={() => snackbar.setVisible(false)}>
+            <PaperSnackbar visible={snackbar.visible} onDismiss={() => snackbar.setVisible(false)} wrapperStyle={{ top: 75 }}>
                 {snackbar.text}
             </PaperSnackbar>
         </Portal>

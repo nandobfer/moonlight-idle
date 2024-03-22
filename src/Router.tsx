@@ -9,6 +9,8 @@ import { SkillsScreen } from "./screens/SkillsScreen/SkillsScreen"
 import { useAppState } from "@react-native-community/hooks"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useSnackbar } from "./hooks/useSnackbar"
+import { BaseRoute } from "react-native-paper/lib/typescript/components/BottomNavigation/BottomNavigation"
+import { Debug } from "./screens/Debug/Debug"
 
 interface RoutesProps {}
 
@@ -19,12 +21,13 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
     const snackbar = useSnackbar()
 
     const [index, setIndex] = useState(0)
-    const [routes, setRoutes] = useState([
+    const [routes, setRoutes] = useState<BaseRoute[]>([
         { key: "home", title: "training", focusedIcon: "bullseye-arrow", unfocusedIcon: "bullseye-arrow" },
         { key: "skills", title: "skills", focusedIcon: "sitemap", unfocusedIcon: "sitemap" },
+        { key: "debug", title: "debug", focusedIcon: "console-line", unfocusedIcon: "console-line" },
     ])
 
-    const renderScene = BottomNavigation.SceneMap({ home: Home, skills: SkillsScreen })
+    const renderScene = BottomNavigation.SceneMap({ home: Home, skills: SkillsScreen, debug: Debug })
 
     const handleIdle = async () => {
         try {

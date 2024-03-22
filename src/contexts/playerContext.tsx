@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 interface PlayerContextValue {
     player: Player | null
     setPlayer: React.Dispatch<React.SetStateAction<Player | null>>
+    resetPlayer: () => void
 }
 
 interface PlayerProviderProps {
@@ -38,6 +39,10 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         }
     }
 
+    const resetPlayer = () => {
+        setPlayer(new Player(reRender))
+    }
+
     useEffect(() => {
         console.log({ player })
         const exp_interval = setInterval(() => {
@@ -54,5 +59,5 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         // setPlayer(new Player(reRender))
     }, [])
 
-    return <PlayerContext.Provider value={{ player, setPlayer }}>{children}</PlayerContext.Provider>
+    return <PlayerContext.Provider value={{ player, setPlayer, resetPlayer }}>{children}</PlayerContext.Provider>
 }
