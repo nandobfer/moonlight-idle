@@ -4,6 +4,7 @@ import { PaperProvider, Surface, Text } from "react-native-paper"
 import { usePaperTheme } from "./hooks/usePaperTheme"
 import { SnackbarProvider } from "./contexts/snackbarContext"
 import PlayerContext from "./contexts/playerContext"
+import { RouterProvider } from "./contexts/routerContext"
 
 interface ProvidersProps {
     children: React.ReactNode
@@ -16,17 +17,19 @@ export const Providers: React.FC<ProvidersProps> = ({ children }) => {
     return (
         <>
             <PaperProvider theme={theme}>
-                <SnackbarProvider>
-                    <IoProvider>
-                        {player ? (
-                            children
-                        ) : (
-                            <Surface style={{ flex: 1 }} elevation={0}>
-                                <Text>loading</Text>
-                            </Surface>
-                        )}
-                    </IoProvider>
-                </SnackbarProvider>
+                <RouterProvider>
+                    <SnackbarProvider>
+                        <IoProvider>
+                            {player ? (
+                                children
+                            ) : (
+                                <Surface style={{ flex: 1 }} elevation={0}>
+                                    <Text>loading</Text>
+                                </Surface>
+                            )}
+                        </IoProvider>
+                    </SnackbarProvider>
+                </RouterProvider>
             </PaperProvider>
         </>
     )

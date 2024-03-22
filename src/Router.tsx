@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Text } from "react-native"
 import constants from "expo-constants"
 import { BottomNavigation, Surface } from "react-native-paper"
@@ -13,6 +13,7 @@ import { BaseRoute } from "react-native-paper/lib/typescript/components/BottomNa
 import { Debug } from "./screens/Debug/Debug"
 import { SkillTree } from "./screens/SkillTree/SkillTree"
 import { Equipment } from "./screens/Equipment/Equipment"
+import RouterContext from "./contexts/routerContext"
 
 interface RoutesProps {}
 
@@ -22,15 +23,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
     const currentAppState = useAppState()
     const snackbar = useSnackbar()
 
-    const [index, setIndex] = useState(0)
-    const [routes, setRoutes] = useState<BaseRoute[]>([
-        { key: "home", title: "training", focusedIcon: "bullseye-arrow", unfocusedIcon: "bullseye-arrow" },
-        { key: "attributes", title: "attributes", focusedIcon: "format-list-numbered", unfocusedIcon: "format-list-numbered" },
-        { key: "skills", title: "skills", focusedIcon: "sitemap", unfocusedIcon: "sitemap" },
-        { key: "equipment", title: "equips", focusedIcon: "sword", unfocusedIcon: "sword" },
-        { key: "fight", title: "fight", focusedIcon: "fencing", unfocusedIcon: "fencing" },
-        { key: "debug", title: "debug", focusedIcon: "console-line", unfocusedIcon: "console-line" },
-    ])
+    const { index, routes, setIndex } = useContext(RouterContext)
 
     const renderScene = BottomNavigation.SceneMap({
         home: Home,
