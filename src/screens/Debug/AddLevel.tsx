@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { Button, Dialog, Portal, Surface, Text, TextInput } from "react-native-paper"
 import { usePlayer } from "../../hooks/usePlayer"
 
@@ -10,16 +10,17 @@ export const AddLevel: React.FC<AddLevelProps> = ({}) => {
     const [level, setLevel] = useState(player.level)
     const [dialog, setDialog] = useState(false)
 
-    const onSubmit = () => {
+    const onSubmit = useCallback(() => {
         const diff = level - player.level
         if (diff <= 0) {
             setDialog(true)
         } else {
             const needed_exp = player.getNeededExp(level - 1)
+            console.log({ needed_exp })
             player.experience = needed_exp
-            player.levelUp(level - 1)
+            player.levelUp(diff)
         }
-    }
+    }, [player.level, level, player.experience])
 
     useEffect(() => {
         setLevel(player.level)
