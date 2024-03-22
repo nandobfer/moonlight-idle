@@ -9,10 +9,9 @@ interface AttributeInputProps {
     onChange: (value: number) => void
     color: string
     name: string
-    can_decrease: boolean
 }
 
-export const AttributeInput: React.FC<AttributeInputProps> = ({ value, onChange, color, name, can_decrease }) => {
+export const AttributeInput: React.FC<AttributeInputProps> = ({ value, onChange, color, name }) => {
     const button_size = 10
     const player = usePlayer()
 
@@ -26,7 +25,7 @@ export const AttributeInput: React.FC<AttributeInputProps> = ({ value, onChange,
         <Surface style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 10, borderRadius: 10 }}>
             <Text>{name}</Text>
             <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-                <IconButton mode="contained" onPress={() => handleChange(-1)} disabled={!can_decrease} icon={"minus"} size={button_size} />
+                <IconButton mode="contained" onPress={() => handleChange(-1)} disabled={value == 0} icon={"minus"} size={button_size} />
                 <Text style={{ width: 50, textAlign: "center" }}>{value}</Text>
                 <IconButton mode="contained" onPress={() => handleChange(1)} disabled={!player.points.attributes} icon={"plus"} size={button_size} />
             </View>

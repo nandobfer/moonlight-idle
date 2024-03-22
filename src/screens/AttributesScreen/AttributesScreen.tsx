@@ -6,55 +6,47 @@ import { AttributeInput } from "./AttributeInput"
 import schema from "../../style/colors.json"
 import { usePlayer } from "../../hooks/usePlayer"
 import { Details } from "./Details"
+import { Attributes } from "../../types/player/attributes"
 
 interface AttributesScreenProps {}
 
 export const AttributesScreen: React.FC<AttributesScreenProps> = ({}) => {
     const player = usePlayer()
 
-    const [tempAttributes, setTempAttributes] = useState({ ...player.attributes })
-
-    const onSaveAttributes = () => {
-        player.updateAttributes(tempAttributes)
+    const changeAttribute = (key: keyof Attributes, value: number) => {
+        // player.attributes[key] += value
+        player.updateAttributes({ ...player.attributes, [key]: player.attributes[key] + value })
     }
 
     return (
         <Surface elevation={0} style={{ flex: 1, padding: 20, gap: 10 }}>
             <HealthManaBars />
-            <Details attributes={tempAttributes} />
+            <Details attributes={player.attributes} />
 
             <AttributeInput
                 color={schema.colors.strength}
                 name="strenght"
-                value={tempAttributes.strenght}
-                onChange={(value) => setTempAttributes({ ...tempAttributes, strenght: tempAttributes.strenght + value })}
-                can_decrease={tempAttributes.strenght != player.attributes.strenght}
+                value={player.attributes.strenght}
+                onChange={(value) => changeAttribute("strenght", value)}
             />
             <AttributeInput
                 color={schema.colors.dexterity}
                 name="dexterity"
-                value={tempAttributes.dexterity}
-                onChange={(value) => setTempAttributes({ ...tempAttributes, dexterity: tempAttributes.dexterity + value })}
-                can_decrease={tempAttributes.dexterity != player.attributes.dexterity}
+                value={player.attributes.dexterity}
+                onChange={(value) => changeAttribute("dexterity", value)}
             />
             <AttributeInput
                 color={schema.colors.intelligence}
                 name="inteligence"
-                value={tempAttributes.inteligence}
-                onChange={(value) => setTempAttributes({ ...tempAttributes, inteligence: tempAttributes.inteligence + value })}
-                can_decrease={tempAttributes.inteligence != player.attributes.inteligence}
+                value={player.attributes.inteligence}
+                onChange={(value) => changeAttribute("inteligence", value)}
             />
             <AttributeInput
                 color={schema.colors.stamina}
                 name="stamina"
-                value={tempAttributes.stamina}
-                onChange={(value) => setTempAttributes({ ...tempAttributes, stamina: tempAttributes.stamina + value })}
-                can_decrease={tempAttributes.stamina != player.attributes.stamina}
+                value={player.attributes.stamina}
+                onChange={(value) => changeAttribute("stamina", value)}
             />
-
-            <Button mode="contained-tonal" onPress={onSaveAttributes} disabled={tempAttributes == player.attributes}>
-                save
-            </Button>
         </Surface>
     )
 }
