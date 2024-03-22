@@ -70,12 +70,12 @@ export class Player {
         AsyncStorage.setItem("player", JSON.stringify(this))
     }
 
-    attack(exp: number) {
+    attack(multiplier: number) {
         const min = this.stats.attack_power * 0.6
         const max = this.stats.attack_power * 1.4
         const damage = Math.floor(Math.random() * (max - min) + min)
 
-        this.accumulateExp(exp)
+        this.accumulateExp(damage * multiplier)
 
         return damage
     }

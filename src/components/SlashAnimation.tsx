@@ -92,7 +92,7 @@ export const SlashAnimation: React.FC<{}> = ({}) => {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            const damage = player.attack(10)
+            const damage = player.attack(1)
             const newSlash = <Slash key={uid(50)} damage={damage} />
             setSlashes((slashes) => [...slashes, newSlash])
 
