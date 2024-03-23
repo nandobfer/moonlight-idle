@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Button, Surface } from "react-native-paper"
 import { HealthManaBars } from "../../components/HealthManaBars"
 import { Ui } from "../Home/Ui"
@@ -10,6 +10,7 @@ import { Image } from "expo-image"
 import { IconStatusBar } from "../../components/IconStatusBar"
 import { SlashAnimation } from "../../components/SlashAnimation"
 import { Monster } from "../../class/Enemy/Monster"
+import SpriteSheet from "rn-sprite-sheet"
 
 interface fightProps {
     level: number
@@ -17,6 +18,7 @@ interface fightProps {
 }
 
 export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
+    const ref = useRef<SpriteSheet>(null)
     const player = usePlayer()
     const [render, setRender] = useState({})
     const rerender = () => {
@@ -28,12 +30,21 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
 
     useEffect(() => {
         if (enemy.dead) {
-            setTimeout(() => {
-                setFighting(false)
-                player.killedTowerEnemy(enemy)
-            }, 500)
+            ref.current?.play({
+                type: "dying",
+                fps: 7,
+                onFinish: () => {
+                    setFighting(false)
+                    ref.current?.play({ type: "dead", loop: false, fps: 1 })
+                    player.killedTowerEnemy(enemy)
+                },
+            })
         }
     }, [enemy.dead])
+
+    useEffect(() => {
+        ref.current?.play({ type: "idle", loop: true, fps: 7 })
+    }, [])
 
     // useEffect(() => {
     //     BackHandler.addEventListener("hardwareBackPress", function () {
@@ -58,9 +69,18 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                     <View style={{ alignSelf: "flex-end" }}>
                         <IconNumber color={colors.strength} icon="star" value={level} />
                     </View>
-                    <Image
-                        source={enemy.dead ? enemy.asset.images.dead?.source : enemy.asset.images.idle.source}
-                        style={{ width: enemy.asset.images.idle.width, height: enemy.asset.images.idle.height }}
+                    <SpriteSheet
+                        ref={ref}
+                        source={enemy.asset.images.spritesheet.source}
+                        columns={3}
+                        rows={5}
+                        animations={{
+                            idle: [0, 1, 2, 1],
+                            attack1: [3, 4, 5],
+                            attack2: [6, 7, 8],
+                            dying: [9, 10, 11],
+                            dead: [12, 13, 14],
+                        }}
                     />
                     <IconStatusBar value={enemy.health} max_value={enemy.stats.health} color={colors.strength} label compact />
                     {!fighting && (

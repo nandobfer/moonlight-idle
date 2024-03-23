@@ -1,9 +1,10 @@
 import { ImageSource } from "expo-image"
 
 export interface ImageAsset {
-    source: string | number | ImageSource | ImageSource[] | string[] | null | undefined
+    source: number
     width: number
     height: number
+    frames: number
 }
 
 export interface MonsterAsset {
@@ -15,7 +16,8 @@ export interface MonsterAsset {
     gold_base: number
 
     images: {
+        spritesheet: { source: number }
         idle: ImageAsset
-        dead?: ImageAsset
+        dead: ImageAsset
     }
 }
