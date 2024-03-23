@@ -34,21 +34,21 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
 
     const handleIdle = async () => {
         try {
-            const idle = await AsyncStorage.getItem("idle")
-            const closed = JSON.parse(idle || "0")
-            if (closed) {
-                const seconds = player.handleIdle(closed)
-                // snackbar(
-                //     `you was idle for ${Math.floor(seconds / 60 / 60)} hours, ${Math.floor(seconds / 60)} minutes and ${Math.floor(seconds)} seconds`
-                // )
-                await AsyncStorage.setItem("idle", "0")
-            }
-        } catch (error) {}
+            const idle_storage = await AsyncStorage.getItem("idle")
+            const idle = Number(idle_storage)
+            const seconds = player.handleIdle(idle)
+            // snackbar(
+            //     `you was idle for ${Math.floor(seconds / 60 / 60)} hours, ${Math.floor(seconds / 60)} minutes and ${Math.floor(seconds)} seconds`
+            // )
+            await AsyncStorage.setItem("idle", "0")
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const getBadge = (key: string) => {
         switch (key) {
-            case "attributes":
+            case "character":
                 return player.points.attributes || false
             case "skills":
                 return player.points.skills || false
@@ -60,7 +60,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
     useEffect(() => {
         console.log(currentAppState)
 
-        if (currentAppState == "background" || currentAppState == "inactive") {
+        if (currentAppState != "active") {
             AsyncStorage.setItem("idle", new Date().getTime().toString())
         } else {
             handleIdle()
