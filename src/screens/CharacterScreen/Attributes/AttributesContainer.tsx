@@ -1,16 +1,15 @@
-import React, { useState } from "react"
-import { View } from "react-native"
-import { Button, Surface, Text } from "react-native-paper"
-import { HealthManaBars } from "../../components/HealthManaBars"
+import React from "react"
+import { Surface } from "react-native-paper"
+import { HealthManaBars } from "../../../components/HealthManaBars"
+import { Details } from "../Details"
+import { usePlayer } from "../../../hooks/usePlayer"
 import { AttributeInput } from "./AttributeInput"
-import schema from "../../style/colors.json"
-import { usePlayer } from "../../hooks/usePlayer"
-import { Details } from "./Details"
-import { Attributes } from "../../types/player/attributes"
+import { colors } from "../../../style/colors"
+import { Attributes } from "../../../types/player/attributes"
 
-interface AttributesScreenProps {}
+interface AttributesContainerProps {}
 
-export const AttributesScreen: React.FC<AttributesScreenProps> = ({}) => {
+export const AttributesContainer: React.FC<AttributesContainerProps> = ({}) => {
     const player = usePlayer()
 
     const changeAttribute = (key: keyof Attributes, value: number) => {
@@ -19,34 +18,31 @@ export const AttributesScreen: React.FC<AttributesScreenProps> = ({}) => {
     }
 
     return (
-        <Surface elevation={0} style={{ flex: 1, padding: 20, gap: 10 }}>
-            <HealthManaBars />
-            <Details attributes={player.attributes} />
-
+        <>
             <AttributeInput
-                color={schema.colors.strength}
+                color={colors.strength}
                 name="strenght"
                 value={player.attributes.strenght}
                 onChange={(value) => changeAttribute("strenght", value)}
             />
             <AttributeInput
-                color={schema.colors.dexterity}
+                color={colors.dexterity}
                 name="dexterity"
                 value={player.attributes.dexterity}
                 onChange={(value) => changeAttribute("dexterity", value)}
             />
             <AttributeInput
-                color={schema.colors.intelligence}
+                color={colors.intelligence}
                 name="inteligence"
                 value={player.attributes.inteligence}
                 onChange={(value) => changeAttribute("inteligence", value)}
             />
             <AttributeInput
-                color={schema.colors.stamina}
+                color={colors.stamina}
                 name="stamina"
                 value={player.attributes.stamina}
                 onChange={(value) => changeAttribute("stamina", value)}
             />
-        </Surface>
+        </>
     )
 }

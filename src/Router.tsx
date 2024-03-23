@@ -5,17 +5,14 @@ import { BottomNavigation, Surface } from "react-native-paper"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { usePlayer } from "./hooks/usePlayer"
 import { Home } from "./screens/Home/Home"
-import { AttributesScreen } from "./screens/AttributesScreen/AttributesScreen"
 import { useAppState } from "@react-native-community/hooks"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useSnackbar } from "./hooks/useSnackbar"
-import { BaseRoute } from "react-native-paper/lib/typescript/components/BottomNavigation/BottomNavigation"
 import { Debug } from "./screens/Debug/Debug"
 import { SkillTree } from "./screens/SkillTree/SkillTree"
-import { Equipment } from "./screens/Equipment/Equipment"
 import RouterContext from "./contexts/routerContext"
 import { GamemodeScreen } from "./screens/GamemodeScreen/GamemodeScreen"
-import { TowerScreen } from "./screens/TowerScreen/TowerScreen"
+import { CharacterScreen } from "./screens/CharacterScreen/CharacterScreen"
 
 interface RoutesProps {}
 
@@ -29,9 +26,8 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
 
     const renderScene = BottomNavigation.SceneMap({
         home: Home,
-        attributes: AttributesScreen,
+        character: CharacterScreen,
         skills: SkillTree,
-        equipment: Equipment,
         fight: GamemodeScreen,
         debug: Debug,
     })

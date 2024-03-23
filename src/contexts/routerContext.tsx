@@ -21,9 +21,8 @@ export const RouterProvider: React.FC<RouterProviderProps> = ({ children }) => {
     const [index, setIndex] = useState(0)
     const [routes, setRoutes] = useState<BaseRoute[]>([
         { key: "home", title: "training", focusedIcon: "bullseye-arrow", unfocusedIcon: "bullseye-arrow" },
-        { key: "attributes", title: "attributes", focusedIcon: "format-list-numbered", unfocusedIcon: "format-list-numbered" },
+        { key: "character", title: "character", focusedIcon: "sword", unfocusedIcon: "sword" },
         { key: "skills", title: "skills", focusedIcon: "sitemap", unfocusedIcon: "sitemap" },
-        { key: "equipment", title: "equips", focusedIcon: "sword", unfocusedIcon: "sword" },
         { key: "fight", title: "fight", focusedIcon: "fencing", unfocusedIcon: "fencing" },
         { key: "debug", title: "debug", focusedIcon: "console-line", unfocusedIcon: "console-line" },
     ])

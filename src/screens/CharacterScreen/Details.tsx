@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { View } from "react-native"
 import { Surface, Text } from "react-native-paper"
-import { usePlayer } from "../../hooks/usePlayer"
 import { Attributes } from "../../types/player/attributes"
+import { usePlayer } from "../../hooks/usePlayer"
 
 interface DetailsProps {
     attributes: Attributes
@@ -18,7 +18,7 @@ export const Details: React.FC<DetailsProps> = ({ attributes }) => {
     }, [player.current])
 
     return (
-        <Surface style={{ flex: 0.5, flexDirection: "row", justifyContent: "space-between", padding: 10, borderRadius: 10 }}>
+        <Surface style={{ flex: 0.25, flexDirection: "row", justifyContent: "space-between", padding: 10, borderRadius: 10 }}>
             <View style={{ gap: 5, flex: 0.5 }}>
                 <Text>level: {player.level}</Text>
                 <Text>health: {stats.health}</Text>

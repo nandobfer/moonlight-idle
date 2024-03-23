@@ -1,8 +1,8 @@
 import React from "react"
 import { View } from "react-native"
 import { Button, IconButton, Surface, Text } from "react-native-paper"
-import { usePlayer } from "../../hooks/usePlayer"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import { usePlayer } from "../../../hooks/usePlayer"
 
 interface AttributeInputProps {
     value: number
