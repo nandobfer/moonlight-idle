@@ -151,7 +151,7 @@ export class Player {
 
     updateAttributes(data: Attributes) {
         this.attributes = data
-        this.current = this.getUpdatedStats(data)
+        this.current = { ...this.getUpdatedStats(data), health: this.current.health }
 
         this.render()
     }
