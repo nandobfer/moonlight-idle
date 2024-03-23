@@ -13,7 +13,7 @@ export const HealthManaBars: React.FC<HealthManaBarsProps> = ({}) => {
     return (
         <Surface style={{ padding: 10, paddingLeft: 7, borderRadius: 10, gap: 5 }}>
             <IconStatusBar value={player.current.health} max_value={player.stats.health} color={schema.colors.strength} icon="heart" label />
-            <IconStatusBar value={player.current.health} max_value={player.stats.mana} color={schema.colors.intelligence} icon="cards-spade" label />
+            <IconStatusBar value={player.current.mana} max_value={player.stats.mana} color={schema.colors.intelligence} icon="cards-spade" label />
         </Surface>
     )
 }

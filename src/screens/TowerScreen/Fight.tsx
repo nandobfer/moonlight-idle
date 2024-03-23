@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { Button, Surface } from "react-native-paper"
+import { Button, Surface, Text } from "react-native-paper"
 import { HealthManaBars } from "../../components/HealthManaBars"
 import { Ui } from "../Home/Ui"
 import { BackHandler, View } from "react-native"
@@ -18,6 +18,7 @@ interface fightProps {
 }
 
 export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
+    let damages_key = 0
     const ref = useRef<SpriteSheet>(null)
     const player = usePlayer()
     const [render, setRender] = useState({})
@@ -25,48 +26,89 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
         setRender({})
     }
     const [enemy, setEnemy] = useState(new Monster({ exp_multiplier: 1, level: level }, rerender))
+    const [damages, setDamages] = useState<{ key: number; damage: number; top: number; left: number }[]>([])
 
     const [fighting, setFighting] = useState(false)
 
+    const renderDamage = (damage: number) => {
+        damages_key += 1
+        setDamages((damages) => [...damages, { key: damages_key, damage, left: Math.random() * 50, top: Math.random() * 50 }])
+        setTimeout(() => setDamages((damages) => damages.filter((item) => item.key != damages_key)), 500)
+    }
+
+    const onEnemyAttack = () => {
+        const damage = enemy.attack()
+        renderDamage(damage)
+
+        const remaining_health = player.takeHit(damage)
+        if (remaining_health == 0) {
+            setFighting(false)
+        }
+    }
+
     useEffect(() => {
-        if (enemy.dead) {
+        if (!fighting) {
+            player.revive()
+            enemy.revive()
+        }
+    }, [fighting])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (!enemy.dead && fighting) {
+                const variant = Math.random() > 0.5 ? "attack1" : "attack2"
+                ref.current?.play({
+                    type: variant,
+                    fps: 7,
+                    onFinish: () => {
+                        ref.current?.play({ type: "idle", loop: true, fps: 7 })
+                        // attack logic
+                        onEnemyAttack()
+                    },
+                })
+            }
+        }, 1000 / enemy.stats.attack_speed)
+
+        if (enemy.dead && fighting) {
+            clearInterval(interval)
             ref.current?.play({
                 type: "dying",
                 fps: 7,
                 onFinish: () => {
-                    setFighting(false)
                     ref.current?.play({ type: "dead", loop: false, fps: 1 })
+                    // after dead logic
                     player.killedTowerEnemy(enemy)
+                    setFighting(false)
                 },
             })
         }
-    }, [enemy.dead])
+
+        return () => {
+            clearInterval(interval)
+        }
+    }, [enemy.dead, fighting])
 
     useEffect(() => {
         ref.current?.play({ type: "idle", loop: true, fps: 7 })
     }, [])
-
-    // useEffect(() => {
-    //     BackHandler.addEventListener("hardwareBackPress", function () {
-    //         console.log(level)
-    //         if (level > 0 && !fighting) {
-    //             goBack()
-    //             return true
-    //         }
-    //         return false
-    //     })
-
-    //     return () => {
-    //         BackHandler.removeEventListener("hardwareBackPress", () => false)
-    //     }
-    // }, [fighting, level])
 
     return (
         <Surface elevation={0} style={{ flex: 1, padding: 20 }}>
             <HealthManaBars />
             <Ui>
                 <Surface elevation={0} style={{ flex: 1, justifyContent: "center", alignItems: "center", position: "relative", gap: 10 }}>
-                    <View style={{ alignSelf: "flex-end" }}>
+                    <View
+                        style={{ alignSelf: "flex-end", flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center" }}
+                    >
+                        <View style={{ position: "relative" }}>
+                            {damages.map((item) => {
+                                return (
+                                    <Text variant="bodyLarge" style={{ color: colors.stamina, top: item.top, left: item.left }} key={item.key}>
+                                        {item.damage}
+                                    </Text>
+                                )
+                            })}
+                        </View>
                         <IconNumber color={colors.strength} icon="star" value={level} />
                     </View>
 

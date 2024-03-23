@@ -4,7 +4,7 @@ export const monsters: { [key: string]: MonsterAsset } = {
     [1]: {
         name: "rat",
         max_level: 3,
-        attack_power: 1,
+        attack_power: 2,
         attack_speed: 0.7,
         health: 50,
         gold_base: 3,
@@ -18,7 +18,7 @@ export const monsters: { [key: string]: MonsterAsset } = {
     [2]: {
         name: "slime",
         max_level: 5,
-        attack_power: 3,
+        attack_power: 5,
         attack_speed: 0.4,
         gold_base: 10,
         health: 100,

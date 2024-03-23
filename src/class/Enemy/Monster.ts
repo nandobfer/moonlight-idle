@@ -77,6 +77,13 @@ export class Monster extends Enemy {
         }
     }
 
+    attack() {
+        const min_damage = this.stats.attack_power * 0.75
+        const max_damage = this.stats.attack_power * 1.25
+        const damage = Math.round(Math.random() * (max_damage - min_damage) + min_damage)
+        return damage
+    }
+
     takeHit(damage: number) {
         if (this.health - damage > 0) {
             this.health -= damage
@@ -99,5 +106,10 @@ export class Monster extends Enemy {
         const coin = Math.round(Math.random() * (max_coin - min_coin) + min_coin)
 
         return { coin }
+    }
+
+    revive() {
+        this.health = this.stats.health
+        this.render()
     }
 }
