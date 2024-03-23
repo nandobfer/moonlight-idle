@@ -55,24 +55,29 @@ export const SlashAnimation: React.FC<{ enemy?: Monster }> = ({ enemy }) => {
     const interval = 1000 / player.current.attack_speed
     const [slashes, setSlashes] = useState<Array<JSX.Element>>([])
 
+    const attack = async () => {
+        const { critical, damage } = player.attack(enemy?.exp_multiplier || dummy.exp_multiplier)
+
+        const image = critical ? assets.images.crit : assets.images.attack
+        const sound_asset = critical ? assets.sounds.crit[1] : assets.sounds.attack[1]
+        const { sound } = await Audio.Sound.createAsync(sound_asset.source)
+
+        const max_index = Object.entries(image).reduce((maximum, [key]) => (Number(key) > maximum ? Number(key) : maximum), 1)
+        const random_index = Math.ceil(Math.random() * max_index)
+        // @ts-ignore
+        const slashGIF = image[random_index]
+        const newSlash = <SlashGIF key={uid(50)} gif={slashGIF} sound={sound} damage={damage} critical={critical} />
+        setSlashes((slashes) => [...slashes, newSlash])
+
+        enemy?.takeHit(damage)
+
+        setTimeout(() => setSlashes((slashes) => slashes.filter((item) => item.key !== newSlash.key)), slashGIF.duration)
+    }
+
     useEffect(() => {
+        attack()
         const timer = setInterval(async () => {
-            const { critical, damage } = player.attack(enemy?.exp_multiplier || dummy.exp_multiplier)
-
-            const image = critical ? assets.images.crit : assets.images.attack
-            const sound_asset = critical ? assets.sounds.crit[1] : assets.sounds.attack[1]
-            const { sound } = await Audio.Sound.createAsync(sound_asset.source)
-
-            const max_index = Object.entries(image).reduce((maximum, [key]) => (Number(key) > maximum ? Number(key) : maximum), 1)
-            const random_index = Math.ceil(Math.random() * max_index)
-            // @ts-ignore
-            const slashGIF = image[random_index]
-            const newSlash = <SlashGIF key={uid(50)} gif={slashGIF} sound={sound} damage={damage} critical={critical} />
-            setSlashes((slashes) => [...slashes, newSlash])
-
-            enemy?.takeHit(damage)
-
-            setTimeout(() => setSlashes((slashes) => slashes.filter((item) => item.key !== newSlash.key)), slashGIF.duration)
+            await attack()
         }, interval)
 
         return () => clearInterval(timer)
