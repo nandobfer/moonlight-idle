@@ -4,9 +4,9 @@ export const monsters: { [key: string]: MonsterAsset } = {
     [1]: {
         name: "rat",
         max_level: 3,
-        attack_power: 2,
+        attack_power: 3,
         attack_speed: 0.5,
-        health: 35,
+        health: 75,
         gold_base: 3,
         spritesheet: require("../assets/game/monsters/rat/spritesheet.png"),
     },
@@ -14,7 +14,7 @@ export const monsters: { [key: string]: MonsterAsset } = {
     [2]: {
         name: "bat",
         max_level: 5,
-        attack_power: 3,
+        attack_power: 4,
         attack_speed: 0.7,
         health: 50,
         gold_base: 10,
