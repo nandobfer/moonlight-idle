@@ -7,11 +7,13 @@ interface IconNumberProps {
     value: string | number
     color: string
     size?: number
+    elevation?: 0 | 1 | 2 | 3 | 4 | 5
 }
 
-export const IconNumber: React.FC<IconNumberProps> = ({ icon, value, color, size = 50 }) => {
+export const IconNumber: React.FC<IconNumberProps> = ({ icon, value, color, elevation = 1, size = 50 }) => {
     return (
         <Surface
+            elevation={elevation}
             style={{
                 borderRadius: 1000,
                 minWidth: size,

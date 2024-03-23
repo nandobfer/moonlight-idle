@@ -10,6 +10,14 @@ const assets = {
         crit: {
             [1]: { source: require("../assets/gifs/crit3.gif"), width: 75, height: 75, duration: 800 },
         },
+
+        tower: {
+            static: { source: require("../assets/game/tower/tower.webp"), width: 350, height: 350 },
+            animation1: { source: require("../assets/game/tower/tower1.gif"), width: 350, height: 350 },
+            animation2: { source: require("../assets/game/tower/tower2.gif"), width: 350, height: 350 },
+        },
+
+        monsters: {},
     },
 
     sounds: {

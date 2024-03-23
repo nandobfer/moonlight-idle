@@ -8,6 +8,7 @@ import { Audio } from "expo-av"
 import { Text } from "react-native-paper"
 import schema from "../style/colors.json"
 import { useRouter } from "../hooks/useRouter"
+import { Monster } from "../class/Enemy/Monster"
 
 const maxWidth = 300 // Maximum X-coordinate for the GIF's position
 const maxHeight = 400 // Maximum Y-coordinate for the GIF's position
@@ -22,7 +23,7 @@ const SlashGIF: React.FC<{
     const [position, setPosition] = useState({ top: Math.random() * maxHeight, left: Math.random() * maxWidth })
 
     useEffect(() => {
-        if (route.key == "home") {
+        if (route.key == "home" || route.key == "fight") {
             sound.playAsync()
         }
 
@@ -48,7 +49,7 @@ const SlashGIF: React.FC<{
     )
 }
 
-export const SlashAnimation: React.FC<{}> = ({}) => {
+export const SlashAnimation: React.FC<{ enemy?: Monster }> = ({ enemy }) => {
     const player = usePlayer()
     const dummy = player.dummy
     const interval = 1000 / player.current.attack_speed
@@ -68,6 +69,8 @@ export const SlashAnimation: React.FC<{}> = ({}) => {
             const slashGIF = image[random_index]
             const newSlash = <SlashGIF key={uid(50)} gif={slashGIF} sound={sound} damage={damage} critical={critical} />
             setSlashes((slashes) => [...slashes, newSlash])
+
+            enemy?.takeHit(damage)
 
             setTimeout(() => setSlashes((slashes) => slashes.filter((item) => item.key !== newSlash.key)), slashGIF.duration)
         }, interval)

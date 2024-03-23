@@ -11,6 +11,7 @@ export class Player {
     level: number = 1
     experience: number = 0
     coin: number = 0
+    tower_level = 1
 
     stats: Stats = {
         armor: 0,
@@ -67,6 +68,7 @@ export class Player {
             this.current = data.current
             this.points = data.points
             this.dummy = data.dummy || new Dummy(1)
+            this.tower_level = data.tower_level || 1
         }
 
         this.current = this.getUpdatedStats(this.attributes)

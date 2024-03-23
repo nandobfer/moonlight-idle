@@ -14,6 +14,8 @@ import { Debug } from "./screens/Debug/Debug"
 import { SkillTree } from "./screens/SkillTree/SkillTree"
 import { Equipment } from "./screens/Equipment/Equipment"
 import RouterContext from "./contexts/routerContext"
+import { GamemodeScreen } from "./screens/GamemodeScreen/GamemodeScreen"
+import { TowerScreen } from "./screens/TowerScreen/TowerScreen"
 
 interface RoutesProps {}
 
@@ -30,7 +32,7 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
         attributes: AttributesScreen,
         skills: SkillTree,
         equipment: Equipment,
-        fight: Equipment,
+        fight: GamemodeScreen,
         debug: Debug,
     })
 

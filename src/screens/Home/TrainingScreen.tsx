@@ -6,11 +6,14 @@ import { SlashAnimation } from "../../components/SlashAnimation"
 import { IconNumber } from "../../components/IconNumber"
 import schema from "../../style/colors.json"
 import { usePlayer } from "../../hooks/usePlayer"
+import { useRouter } from "../../hooks/useRouter"
 
 export const TrainingScreen: React.FC<{}> = () => {
     const dummy = usePlayer().dummy
 
-    return (
+    const router = useRouter()
+
+    return router.route.key != "fight" ? (
         <Surface elevation={0} style={{ flex: 1, position: "relative", justifyContent: "center", alignItems: "center", padding: 20 }}>
             <Image source={assets.images.dummy[1]} style={{ width: 300, height: 400 }} />
             <Surface elevation={0} style={{ position: "absolute", right: 50, bottom: 50 }}>
@@ -18,5 +21,5 @@ export const TrainingScreen: React.FC<{}> = () => {
             </Surface>
             <SlashAnimation />
         </Surface>
-    )
+    ) : null
 }
