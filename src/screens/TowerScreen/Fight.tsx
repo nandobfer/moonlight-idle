@@ -33,6 +33,11 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
 
     const [fighting, setFighting] = useState(false)
 
+    const restart = () => {
+        setEnemy(new Monster({ exp_multiplier: level * 2, level: level }, rerender))
+        ref.current?.play({ type: "idle", loop: true, fps: 7 })
+    }
+
     const renderDamage = (damage: number) => {
         damages_key += 1
         setDamages((damages) => [...damages, { key: damages_key, damage, left: Math.random() * 50, top: Math.random() * 50 }])
@@ -158,9 +163,13 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                             <Button mode="contained-tonal" onPress={goBack}>
                                 stairs
                             </Button>
-                            {!enemy.dead && (
+                            {!enemy.dead ? (
                                 <Button mode="contained" onPress={() => setFighting(true)}>
                                     start
+                                </Button>
+                            ) : (
+                                <Button mode="contained" onPress={restart}>
+                                    restart
                                 </Button>
                             )}
                         </View>
