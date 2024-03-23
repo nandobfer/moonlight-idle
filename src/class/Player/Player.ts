@@ -125,6 +125,11 @@ export class Player {
         if (this.level % 5 == 0) {
             this.points.skills += quantity
         }
+
+        this.stats.attack_power += 0.5
+        this.stats.health += 1
+
+        this.current = this.getUpdatedStats(this.attributes)
     }
 
     getUpdatedStats(attributes: Attributes) {

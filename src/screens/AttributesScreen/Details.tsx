@@ -11,11 +11,11 @@ interface DetailsProps {
 export const Details: React.FC<DetailsProps> = ({ attributes }) => {
     const player = usePlayer()
 
-    const [stats, setStats] = useState(player.getUpdatedStats(attributes))
+    const [stats, setStats] = useState(player.current)
 
     useEffect(() => {
-        setStats(player.getUpdatedStats(attributes))
-    }, [attributes])
+        setStats(player.current)
+    }, [player.current])
 
     return (
         <Surface style={{ flex: 0.5, flexDirection: "row", justifyContent: "space-between", padding: 10, borderRadius: 10 }}>
