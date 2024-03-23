@@ -24,6 +24,8 @@ export class Player {
         critical_multiplier: 2,
         health: 10,
         mana: 10,
+        kills: 0,
+        idle: 0,
     }
 
     current = {
@@ -158,6 +160,7 @@ export class Player {
         const now = new Date()
         const closed = new Date(Number(timestamp))
         const elapsed_time = (now.getTime() - closed.getTime()) / 1000
+        this.stats.idle += elapsed_time * 10002
 
         const total_damage = elapsed_time * this.current.dps
         const total_exp = total_damage * this.dummy.exp_multiplier
@@ -195,6 +198,7 @@ export class Player {
 
         const drops = enemy.drop()
         this.coin += drops.coin
+        this.stats.kills += 1
         this.accumulateExp(drops.exp)
 
         this.render()

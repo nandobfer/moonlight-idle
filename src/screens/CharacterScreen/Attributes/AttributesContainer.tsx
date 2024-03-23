@@ -1,7 +1,4 @@
 import React from "react"
-import { Surface } from "react-native-paper"
-import { HealthManaBars } from "../../../components/HealthManaBars"
-import { Details } from "../Details"
 import { usePlayer } from "../../../hooks/usePlayer"
 import { AttributeInput } from "./AttributeInput"
 import { colors } from "../../../style/colors"

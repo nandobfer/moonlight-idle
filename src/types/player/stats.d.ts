@@ -8,4 +8,6 @@ export interface Stats {
     health: number
     mana: number
     armor: number
+    kills: number
+    idle: number
 }
