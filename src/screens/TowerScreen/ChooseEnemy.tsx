@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useRef } from "react"
 import { Button, Surface } from "react-native-paper"
 import { monsters } from "../../monsters"
 import { FlatList, View } from "react-native"
@@ -7,6 +7,8 @@ import { IconNumber } from "../../components/IconNumber"
 import { colors } from "../../style/colors"
 import { usePlayer } from "../../hooks/usePlayer"
 import { Ui } from "../Home/Ui"
+import SpriteSheet from "rn-sprite-sheet"
+import { EnemyChoosingComponent } from "./EnemyChoosingComponent"
 
 interface ChooseEnemyProps {
     setChosenLevel: React.Dispatch<React.SetStateAction<number>>
@@ -28,31 +30,8 @@ export const ChooseEnemy: React.FC<ChooseEnemyProps> = ({ setChosenLevel }) => {
             <FlatList
                 showsVerticalScrollIndicator={false}
                 data={[...enemies]}
-                renderItem={({ item }) => {
-                    const image = item.monster.images.idle
-                    return (
-                        <Surface
-                            style={{
-                                width: "100%",
-                                flexDirection: "row",
-                                flex: 1,
-                                alignItems: "center",
-                                borderRadius: 20,
-                                padding: 10,
-                                maxHeight: 120,
-                                overflow: "hidden",
-                                paddingHorizontal: 20,
-                                justifyContent: "space-between",
-                            }}
-                        >
-                            <IconNumber color={colors.stamina} icon="star" value={item.key} elevation={5} />
-                            <Image source={image.source} style={{ width: image.width, height: image.height }} />
-                            <Button mode="contained-tonal" onPress={() => onPress(Number(item.key))}>
-                                go
-                            </Button>
-                        </Surface>
-                    )
-                }}
+                keyExtractor={(item) => item.key}
+                renderItem={({ item }) => <EnemyChoosingComponent enemy={item.monster} id={item.key} onPress={onPress} />}
                 contentContainerStyle={{ gap: 20, padding: 20, paddingVertical: 100 }}
             />
             <View style={{ flexDirection: "row", justifyContent: "space-between", position: "absolute", width: "100%", padding: 20 }}>

@@ -114,7 +114,7 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
 
                     <SpriteSheet
                         ref={ref}
-                        source={enemy.asset.images.spritesheet}
+                        source={enemy.asset.spritesheet}
                         columns={3}
                         rows={5}
                         animations={{

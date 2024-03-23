@@ -14,10 +14,5 @@ export interface MonsterAsset {
     attack_power: number
     attack_speed: number
     gold_base: number
-
-    images: {
-        spritesheet: number
-        idle: ImageAsset
-        dead: ImageAsset
-    }
+    spritesheet: number
 }
