@@ -1,7 +1,7 @@
 const assets = {
     images: {
         dummy: {
-            [1]: require("../assets/training/dummy_1.png"),
+            [1]: require("../assets/training/spritesheet.png"),
         },
         attack: {
             [1]: { source: require("../assets/gifs/slash1.gif"), width: 32, height: 54, duration: 600 },
