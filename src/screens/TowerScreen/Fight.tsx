@@ -175,7 +175,7 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                         </View>
                     )}
 
-                    {fighting && <SlashAnimation enemy={enemy} />}
+                    {fighting && player.current.health > 0 && <SlashAnimation enemy={enemy} />}
                 </Surface>
             </Ui>
 
