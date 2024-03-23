@@ -197,14 +197,13 @@ export class Player {
     }
 
     takeHit(damage: number) {
-        console.log(`hit taken: ${damage}`)
         if (damage < this.current.health) {
             this.current.health -= damage
         } else {
             this.current.health = 0
         }
-        
-        this.render()
+
+        // this.render()
         return this.current.health
     }
 

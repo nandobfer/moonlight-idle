@@ -57,7 +57,7 @@ export const SlashAnimation: React.FC<{ enemy?: Monster }> = ({ enemy }) => {
 
     useEffect(() => {
         const timer = setInterval(async () => {
-            const { critical, damage } = player.attack(dummy.exp_multiplier)
+            const { critical, damage } = player.attack(enemy?.exp_multiplier || dummy.exp_multiplier)
 
             const image = critical ? assets.images.crit : assets.images.attack
             const sound_asset = critical ? assets.sounds.crit[1] : assets.sounds.attack[1]
