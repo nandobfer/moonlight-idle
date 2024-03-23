@@ -27,10 +27,11 @@ export const EnemyChoosingComponent: React.FC<EnemyChoosingComponentProps> = ({ 
                 overflow: "hidden",
                 paddingHorizontal: 20,
                 justifyContent: "space-between",
+                position: "relative",
             }}
         >
             <IconNumber color={colors.stamina} icon="star" value={id} elevation={5} />
-            <View style={{ width: 100, alignItems: "center" }}>
+            <View style={{ width: 100, alignItems: "center", justifyContent: "flex-end" }}>
                 <SpriteSheet
                     ref={ref}
                     source={enemy.spritesheet}
@@ -44,6 +45,8 @@ export const EnemyChoosingComponent: React.FC<EnemyChoosingComponentProps> = ({ 
                         dead: [12, 13, 14],
                     }}
                     onLoad={() => ref.current?.play({ type: "idle", fps: 7, loop: true })}
+                    height={150}
+                    viewStyle={{}}
                 />
             </View>
             <Button mode="contained-tonal" onPress={() => onPress(Number(id))}>
