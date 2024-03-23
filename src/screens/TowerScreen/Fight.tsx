@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Button, Surface } from "react-native-paper"
 import { HealthManaBars } from "../../components/HealthManaBars"
 import { Ui } from "../Home/Ui"
-import { View } from "react-native"
+import { BackHandler, View } from "react-native"
 import { IconNumber } from "../../components/IconNumber"
 import { colors } from "../../style/colors"
 import { usePlayer } from "../../hooks/usePlayer"
@@ -35,6 +35,21 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
         }
     }, [enemy.dead])
 
+    // useEffect(() => {
+    //     BackHandler.addEventListener("hardwareBackPress", function () {
+    //         console.log(level)
+    //         if (level > 0 && !fighting) {
+    //             goBack()
+    //             return true
+    //         }
+    //         return false
+    //     })
+
+    //     return () => {
+    //         BackHandler.removeEventListener("hardwareBackPress", () => false)
+    //     }
+    // }, [fighting, level])
+
     return (
         <Surface elevation={0} style={{ flex: 1, padding: 20 }}>
             <HealthManaBars />
@@ -50,11 +65,10 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                     <IconStatusBar value={enemy.health} max_value={enemy.stats.health} color={colors.strength} label compact />
                     {!fighting && (
                         <View style={{ position: "absolute", bottom: 100, gap: 20, flexDirection: "row" }}>
-                            {enemy.dead ? (
-                                <Button mode="contained" onPress={goBack}>
-                                    stairs
-                                </Button>
-                            ) : (
+                            <Button mode="contained-tonal" onPress={goBack}>
+                                stairs
+                            </Button>
+                            {!enemy.dead && (
                                 <Button mode="contained" onPress={() => setFighting(true)}>
                                     start
                                 </Button>
