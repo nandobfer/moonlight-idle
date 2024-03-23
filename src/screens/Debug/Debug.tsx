@@ -4,6 +4,7 @@ import { AddLevel } from "./AddLevel"
 import { Reset } from "./Reset"
 import { Ui } from "../Home/Ui"
 import { SetDummy } from "./SetDummy"
+import { SetTower } from "./SetTower"
 
 interface DebugProps {}
 
@@ -13,6 +14,7 @@ export const Debug: React.FC<DebugProps> = ({}) => {
             <Surface elevation={0} style={{ flex: 1, paddingVertical: 20, gap: 20 }}>
                 <AddLevel />
                 <SetDummy />
+                <SetTower />
                 <Reset />
             </Surface>
         </Ui>
