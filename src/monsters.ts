@@ -9,7 +9,7 @@ export const monsters: { [key: string]: MonsterAsset } = {
         health: 50,
         gold_base: 3,
         images: {
-            spritesheet: { source: require("../assets/game/monsters/rat/spritesheet.png") },
+            spritesheet: require("../assets/game/monsters/rat/spritesheet.png"),
             idle: { source: require("../assets/game/monsters/rat/idle.gif"), width: 225, height: 112, frames: 4 },
             dead: { source: require("../assets/game/monsters/rat/dead.webp"), width: 225, height: 112, frames: 4 },
         },
@@ -23,7 +23,7 @@ export const monsters: { [key: string]: MonsterAsset } = {
         gold_base: 10,
         health: 100,
         images: {
-            spritesheet: { source: require("../assets/game/monsters/slime/spritesheet.png") },
+            spritesheet: require("../assets/game/monsters/slime/spritesheet.png"),
             idle: { source: require("../assets/game/monsters/slime/idle.gif"), width: 170, height: 135, frames: 4 },
             dead: { source: require("../assets/game/monsters/slime/dead.webp"), width: 170, height: 135, frames: 4 },
         },

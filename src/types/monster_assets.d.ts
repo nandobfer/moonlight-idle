@@ -16,7 +16,7 @@ export interface MonsterAsset {
     gold_base: number
 
     images: {
-        spritesheet: { source: number }
+        spritesheet: number
         idle: ImageAsset
         dead: ImageAsset
     }

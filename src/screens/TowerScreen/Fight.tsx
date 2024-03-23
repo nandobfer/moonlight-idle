@@ -69,9 +69,10 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                     <View style={{ alignSelf: "flex-end" }}>
                         <IconNumber color={colors.strength} icon="star" value={level} />
                     </View>
+
                     <SpriteSheet
                         ref={ref}
-                        source={enemy.asset.images.spritesheet.source}
+                        source={enemy.asset.images.spritesheet}
                         columns={3}
                         rows={5}
                         animations={{
@@ -82,6 +83,7 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                             dead: [12, 13, 14],
                         }}
                     />
+
                     <IconStatusBar value={enemy.health} max_value={enemy.stats.health} color={colors.strength} label compact />
                     {!fighting && (
                         <View style={{ position: "absolute", bottom: 100, gap: 20, flexDirection: "row" }}>
