@@ -105,7 +105,9 @@ export class Monster extends Enemy {
         const max_coin = this.asset.gold_base * 1.4
         const coin = Math.round(Math.random() * (max_coin - min_coin) + min_coin)
 
-        return { coin }
+        const exp = Math.round(this.stats.health * 2 * this.exp_multiplier)
+
+        return { coin, exp }
     }
 
     revive() {

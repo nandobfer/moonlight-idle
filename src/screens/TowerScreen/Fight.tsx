@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { Button, Surface, Text } from "react-native-paper"
+import { Button, Dialog, Portal, Surface, Text } from "react-native-paper"
 import { HealthManaBars } from "../../components/HealthManaBars"
 import { Ui } from "../Home/Ui"
 import { BackHandler, View } from "react-native"
@@ -25,8 +25,11 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
     const rerender = () => {
         setRender({})
     }
-    const [enemy, setEnemy] = useState(new Monster({ exp_multiplier: 1, level: level }, rerender))
+    const [enemy, setEnemy] = useState(new Monster({ exp_multiplier: level, level: level }, rerender))
+
     const [damages, setDamages] = useState<{ key: number; damage: number; top: number; left: number }[]>([])
+    const [fightResult, setFightResult] = useState(false)
+    const [drops, setDrops] = useState<{ coin: number; exp: number; advanced_tower: boolean }>()
 
     const [fighting, setFighting] = useState(false)
 
@@ -43,6 +46,7 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
         const remaining_health = player.takeHit(damage)
         if (remaining_health == 0) {
             setFighting(false)
+            setFightResult(true)
         }
     }
 
@@ -77,7 +81,9 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                 onFinish: () => {
                     ref.current?.play({ type: "dead", loop: false, fps: 1 })
                     // after dead logic
-                    player.killedTowerEnemy(enemy)
+                    const drops = player.killedTowerEnemy(enemy)
+                    setDrops(drops)
+                    setFightResult(true)
                     setFighting(false)
                 },
             })
@@ -143,6 +149,24 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                     {fighting && <SlashAnimation enemy={enemy} />}
                 </Surface>
             </Ui>
+
+            <Portal>
+                <Dialog visible={fightResult} onDismiss={() => setFightResult(false)}>
+                    <Dialog.Title>{drops ? `you killed the ${enemy.name}` : "you died"}</Dialog.Title>
+                    {!!drops && (
+                        <Dialog.Content>
+                            <Surface style={{ padding: 10, gap: 5, borderRadius: 10 }}>
+                                <Text>coins: {drops.coin}</Text>
+                                <Text>exp: {drops.exp}</Text>
+                            </Surface>
+                        </Dialog.Content>
+                    )}
+                    <Dialog.Actions>
+                        {drops?.advanced_tower && <Text>you unlocked a new floor</Text>}
+                        <Button onPress={() => setFightResult(false)}>ok</Button>
+                    </Dialog.Actions>
+                </Dialog>
+            </Portal>
         </Surface>
     )
 }

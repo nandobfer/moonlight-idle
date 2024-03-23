@@ -180,15 +180,20 @@ export class Player {
     }
 
     killedTowerEnemy(enemy: Monster) {
+        let advanced_tower = false
         if (this.tower_level == enemy.level) {
             this.tower_level += 1
+            advanced_tower = true
             // tower level up rewards here
         }
 
         const drops = enemy.drop()
         this.coin += drops.coin
+        this.accumulateExp(drops.exp)
 
         this.render()
+
+        return { ...drops, advanced_tower }
     }
 
     takeHit(damage: number) {
