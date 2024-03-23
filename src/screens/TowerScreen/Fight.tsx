@@ -25,7 +25,7 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
     const rerender = () => {
         setRender({})
     }
-    const [enemy, setEnemy] = useState(new Monster({ exp_multiplier: level, level: level }, rerender))
+    const [enemy, setEnemy] = useState(new Monster({ exp_multiplier: level * 2, level: level }, rerender))
 
     const [damages, setDamages] = useState<{ key: number; damage: number; top: number; left: number }[]>([])
     const [fightResult, setFightResult] = useState(false)
