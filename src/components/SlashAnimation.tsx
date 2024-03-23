@@ -63,7 +63,7 @@ const SlashSprite: React.FC<SlashSpriteProps> = ({ id, asset, sound, damage, cri
                 onLoad={() => {
                     sprite.current?.play({
                         type: "attack",
-                        fps: 10,
+                        fps: 15,
                         loop: false,
                         onFinish: () => {
                             destroySelf(id)
