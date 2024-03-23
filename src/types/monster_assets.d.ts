@@ -12,6 +12,7 @@ export interface MonsterAsset {
     health: number
     attack_power: number
     attack_speed: number
+    gold_base: number
 
     images: {
         idle: ImageAsset

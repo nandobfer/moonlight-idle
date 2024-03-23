@@ -1,13 +1,22 @@
 import { Image } from "expo-image"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Surface } from "react-native-paper"
 import { TowerComponent } from "./TowerComponent"
 import { TowerScreen } from "../TowerScreen/TowerScreen"
+import { BackHandler } from "react-native"
 
 interface GamemodeScreenProps {}
 
 export const GamemodeScreen: React.FC<GamemodeScreenProps> = ({}) => {
     const [screen, setScreen] = useState("home")
+
+    useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", function () {
+            setScreen("home")
+            return true
+        })
+    }, [])
+
     return (
         <>
             {screen == "home" && (

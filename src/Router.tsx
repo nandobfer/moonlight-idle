@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Text } from "react-native"
+import { BackHandler, Text } from "react-native"
 import constants from "expo-constants"
 import { BottomNavigation, Surface } from "react-native-paper"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
@@ -70,6 +70,12 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
             handleIdle()
         }
     }, [currentAppState])
+
+    useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", function () {
+            return true
+        })
+    }, [])
 
     return (
         <Surface elevation={0} style={{ flex: 1 }}>

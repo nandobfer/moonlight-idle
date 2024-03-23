@@ -92,4 +92,12 @@ export class Monster extends Enemy {
         this.dead = true
         this.render()
     }
+
+    drop() {
+        const min_coin = this.asset.gold_base * 0.6
+        const max_coin = this.asset.gold_base * 1.4
+        const coin = Math.round(Math.random() * (max_coin - min_coin) + min_coin)
+
+        return { coin }
+    }
 }

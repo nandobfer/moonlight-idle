@@ -30,6 +30,7 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
         if (enemy.dead) {
             setTimeout(() => {
                 setFighting(false)
+                player.killedTowerEnemy(enemy)
             }, 500)
         }
     }, [enemy.dead])
@@ -39,7 +40,7 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
             <HealthManaBars />
             <Ui>
                 <Surface elevation={0} style={{ flex: 1, justifyContent: "center", alignItems: "center", position: "relative", gap: 10 }}>
-                    <View style={{ position: "absolute", right: 20, top: 20 }}>
+                    <View style={{ alignSelf: "flex-end" }}>
                         <IconNumber color={colors.strength} icon="star" value={level} />
                     </View>
                     <Image

@@ -4,6 +4,7 @@ import { Attributes } from "../../types/player/attributes"
 import { Stats } from "../../types/player/stats"
 import { fixedNumber } from "../../tools/fixedNumber"
 import { Dummy } from "../Enemy/Dummy"
+import { Monster } from "../Enemy/Monster"
 
 export type PlayerData = WithoutFunctions<Player>
 
@@ -176,5 +177,17 @@ export class Player {
     setNewDummy(dummy: Dummy) {
         this.dummy = dummy
         this.save()
+    }
+
+    killedTowerEnemy(enemy: Monster) {
+        if (this.tower_level == enemy.level) {
+            this.tower_level += 1
+            // tower level up rewards here
+        }
+
+        const drops = enemy.drop()
+        this.coin += drops.coin
+
+        this.render()
     }
 }

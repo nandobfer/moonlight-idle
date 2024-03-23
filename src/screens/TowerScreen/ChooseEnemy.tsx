@@ -1,11 +1,12 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Button, Surface } from "react-native-paper"
 import { monsters } from "../../monsters"
-import { FlatList } from "react-native"
+import { FlatList, View } from "react-native"
 import { Image } from "expo-image"
 import { IconNumber } from "../../components/IconNumber"
 import { colors } from "../../style/colors"
 import { usePlayer } from "../../hooks/usePlayer"
+import { Ui } from "../Home/Ui"
 
 interface ChooseEnemyProps {
     setChosenLevel: React.Dispatch<React.SetStateAction<number>>
@@ -23,9 +24,10 @@ export const ChooseEnemy: React.FC<ChooseEnemyProps> = ({ setChosenLevel }) => {
     }
 
     return (
-        <Surface elevation={0} style={{ flex: 1, paddingHorizontal: 20 }}>
+        <Surface elevation={0} style={{ flex: 1, position: "relative" }}>
             <FlatList
-                data={enemies}
+                showsVerticalScrollIndicator={false}
+                data={[...enemies]}
                 renderItem={({ item }) => {
                     const image = item.monster.images.idle
                     return (
@@ -37,6 +39,9 @@ export const ChooseEnemy: React.FC<ChooseEnemyProps> = ({ setChosenLevel }) => {
                                 alignItems: "center",
                                 borderRadius: 20,
                                 padding: 10,
+                                maxHeight: 120,
+                                overflow: "hidden",
+                                paddingHorizontal: 20,
                                 justifyContent: "space-between",
                             }}
                         >
@@ -48,8 +53,13 @@ export const ChooseEnemy: React.FC<ChooseEnemyProps> = ({ setChosenLevel }) => {
                         </Surface>
                     )
                 }}
-                contentContainerStyle={{ gap: 20, paddingVertical: 20 }}
+                contentContainerStyle={{ gap: 20, padding: 20, paddingVertical: 100 }}
             />
+            <View style={{ flexDirection: "row", justifyContent: "space-between", position: "absolute", width: "100%", padding: 20 }}>
+                <IconNumber icon="star-of-david" color={colors.inversePrimary} value={player.level} />
+                <IconNumber icon="star" color={colors.strength} value={player.tower_level} size={60} />
+                <IconNumber icon="coins" color={colors.stamina} value={player.coin} />
+            </View>
         </Surface>
     )
 }
