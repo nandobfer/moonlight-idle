@@ -156,17 +156,19 @@ export class Player {
         this.render()
     }
 
-    handleIdle(timestamp: string) {
+    handleIdle(timestamp: number) {
         const now = new Date()
-        const closed = new Date(Number(timestamp))
-        const elapsed_time = (now.getTime() - closed.getTime()) / 1000
-        this.stats.idle += elapsed_time * 10002
+        const closed = new Date(timestamp)
+        const idle = now.getTime() - closed.getTime()
+        const idle_seconds = idle / 1000
+        this.stats.idle += idle
+        console.log({ idle_seconds })
 
-        const total_damage = elapsed_time * this.current.dps
+        const total_damage = idle_seconds * this.current.dps
         const total_exp = total_damage * this.dummy.exp_multiplier
 
         let level = this.level
-        let remaining_exp = total_exp
+        let remaining_exp = total_exp + this.experience
         while (remaining_exp >= this.getNeededExp(level)) {
             remaining_exp -= this.getNeededExp(level)
             level += 1
@@ -180,7 +182,7 @@ export class Player {
 
         this.experience = remaining_exp
 
-        return elapsed_time
+        return idle_seconds
     }
 
     setNewDummy(dummy: Dummy) {

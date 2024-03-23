@@ -42,6 +42,7 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     const resetPlayer = () => {
         setPlayer(new Player(reRender))
         reRender()
+        setTimeout(() => player?.save(), 500)
     }
 
     useEffect(() => {
