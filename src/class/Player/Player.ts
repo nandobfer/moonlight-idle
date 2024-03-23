@@ -129,7 +129,8 @@ export class Player {
         this.stats.attack_power += 0.5
         this.stats.health += 1
 
-        this.current = this.getUpdatedStats(this.attributes)
+        const current_health = this.current.health
+        this.current = { ...this.getUpdatedStats(this.attributes), health: current_health }
     }
 
     getUpdatedStats(attributes: Attributes) {
