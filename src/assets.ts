@@ -20,6 +20,19 @@ const assets = {
         monsters: {},
     },
 
+    spritesheets: {
+        attack: {
+            normal: {
+                [1]: { source: require("../assets/spritesheet/slashes/slash1.png"), columns: 4, rows: 1 },
+                [2]: { source: require("../assets/spritesheet/slashes/slash2.png"), columns: 4, rows: 1 },
+                [3]: { source: require("../assets/spritesheet/slashes/slash3.png"), columns: 4, rows: 1 },
+            },
+            crit: {
+                1: { source: require("../assets/spritesheet/slashes/crit1.png"), columns: 10, rows: 1 },
+            },
+        },
+    },
+
     sounds: {
         attack: {
             [1]: { source: require("../assets/sound/attack/attack1.mp3") },
