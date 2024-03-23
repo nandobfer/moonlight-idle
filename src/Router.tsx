@@ -42,9 +42,9 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
             const closed = JSON.parse(idle || "0")
             if (closed) {
                 const seconds = player.handleIdle(closed)
-                snackbar(
-                    `you was idle for ${Math.floor(seconds / 60 / 60)} hours, ${Math.floor(seconds / 60)} minutes and ${Math.floor(seconds)} seconds`
-                )
+                // snackbar(
+                //     `you was idle for ${Math.floor(seconds / 60 / 60)} hours, ${Math.floor(seconds / 60)} minutes and ${Math.floor(seconds)} seconds`
+                // )
                 await AsyncStorage.setItem("idle", "0")
             }
         } catch (error) {}
