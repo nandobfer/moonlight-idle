@@ -39,26 +39,27 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
         setTimeout(() => setDamages((damages) => damages.filter((item) => item.key != damages_key)), 500)
     }
 
+    const onPlayerDied = () => {
+        setFighting(false)
+        setFightResult(true)
+        enemy.revive()
+    }
+
     const onEnemyAttack = () => {
         const damage = enemy.attack()
         renderDamage(damage)
 
         const remaining_health = player.takeHit(damage)
         if (remaining_health == 0) {
-            setFighting(false)
-            setFightResult(true)
+            onPlayerDied()
+            return false
         }
+
+        return true
     }
 
-    useEffect(() => {
-        if (!fighting) {
-            player.revive()
-            enemy.revive()
-        }
-    }, [fighting])
-
-    useEffect(() => {
-        const interval = setInterval(() => {
+    const playEnemyAttack = () => {
+        const timeout = setTimeout(() => {
             if (!enemy.dead && fighting) {
                 const variant = Math.random() > 0.5 ? "attack1" : "attack2"
                 ref.current?.play({
@@ -67,14 +68,35 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                     onFinish: () => {
                         ref.current?.play({ type: "idle", loop: true, fps: 7 })
                         // attack logic
-                        onEnemyAttack()
+                        const still_alive = onEnemyAttack()
+                        if (still_alive) {
+                            playEnemyAttack()
+                        }
                     },
                 })
             }
         }, 1000 / enemy.stats.attack_speed)
 
-        if (enemy.dead && fighting) {
-            clearInterval(interval)
+        return timeout
+    }
+
+    useEffect(() => {
+        if (!fighting) {
+            player.revive()
+            // enemy.revive()
+        }
+    }, [fighting])
+
+    useEffect(() => {
+        const timeout = playEnemyAttack()
+
+        return () => {
+            clearTimeout(timeout)
+        }
+    }, [enemy.dead, fighting])
+
+    useEffect(() => {
+        if (enemy.dead) {
             ref.current?.play({
                 type: "dying",
                 fps: 7,
@@ -83,16 +105,14 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                     // after dead logic
                     const drops = player.killedTowerEnemy(enemy)
                     setDrops(drops)
-                    setFightResult(true)
-                    setFighting(false)
+                    setTimeout(() => {
+                        setFightResult(true)
+                        setFighting(false)
+                    }, 1000)
                 },
             })
         }
-
-        return () => {
-            clearInterval(interval)
-        }
-    }, [enemy.dead, fighting])
+    }, [enemy.dead])
 
     useEffect(() => {
         ref.current?.play({ type: "idle", loop: true, fps: 7 })
