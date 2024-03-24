@@ -53,9 +53,9 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
 
     const onEnemyAttack = () => {
         const damage = enemy.attack()
-        renderDamage(damage)
+        const { remaining_health, effective_damage, mitigated_damage } = player.takeHit(damage)
+        renderDamage(effective_damage)
 
-        const remaining_health = player.takeHit(damage)
         if (remaining_health == 0) {
             onPlayerDied()
             return false

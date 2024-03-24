@@ -248,7 +248,7 @@ export class Player {
         }
 
         // this.render()
-        return this.current.health
+        return { remaining_health: this.current.health, effective_damage, mitigated_damage }
     }
 
     revive() {
