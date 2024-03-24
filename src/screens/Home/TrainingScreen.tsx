@@ -14,6 +14,29 @@ export const TrainingScreen: React.FC<{}> = () => {
     const dummy = usePlayer().dummy
 
     const router = useRouter()
+    const playIdle = () => {
+        ref.current?.play({ type: "idle", fps: 8, loop: true })
+    }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const random = Math.random() * 100
+            if (random <= 15) {
+                ref.current?.play({
+                    type: "weaving",
+                    fps: 10,
+                    loop: false,
+                    onFinish: () => {
+                        playIdle()
+                    },
+                })
+            }
+        }, 5000)
+
+        return () => {
+            clearInterval(interval)
+        }
+    }, [])
 
     return router.route.key == "home" ? (
         <Surface elevation={0} style={{ flex: 1, position: "relative", justifyContent: "center", alignItems: "center", padding: 20 }}>
@@ -23,8 +46,8 @@ export const TrainingScreen: React.FC<{}> = () => {
                 columns={9}
                 rows={1}
                 source={assets.images.dummy[1]}
-                animations={{ idle: [6, 7, 8, 7] }}
-                onLoad={() => ref.current?.play({ type: "idle", fps: 7, loop: true })}
+                animations={{ idle: [6, 7, 8, 7], weaving: [0, 1, 2, 1] }}
+                onLoad={playIdle}
                 height={450}
             />
             <Surface elevation={0} style={{ position: "absolute", right: 50, bottom: 50 }}>
