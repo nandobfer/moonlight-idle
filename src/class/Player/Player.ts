@@ -164,7 +164,7 @@ export class Player {
         stats.attack_speed = fixedNumber(this.stats.attack_speed + attributes.dexterity * 0.02)
         stats.critical_chance = fixedNumber(this.stats.critical_chance + attributes.dexterity * 0.1)
         stats.max_health = Math.floor(this.stats.max_health + attributes.stamina * 0.5)
-        stats.mana = Math.floor(this.stats.mana + attributes.inteligence * 0.5)
+        stats.max_mana = Math.floor(this.stats.max_mana + attributes.inteligence * 0.5)
 
         stats.dps = stats.attack_power * stats.attack_speed * (stats.critical_chance / 100 + 1) * stats.critical_multiplier
 
