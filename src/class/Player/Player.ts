@@ -103,6 +103,15 @@ export class Player {
             })
         } else {
             this.equipItem(new Equipment(ItemTier.wooden, ColumnType.sword))
+            this.bag.addItem(new Equipment(ItemTier.wooden, ColumnType.sword))
+            this.bag.addItem(new Equipment(ItemTier.wooden, ColumnType.sword))
+            this.bag.addItem(new Equipment(ItemTier.wooden, ColumnType.sword))
+            this.bag.addItem(new Equipment(ItemTier.bronze, ColumnType.sword))
+            this.bag.addItem(new Equipment(ItemTier.bronze, ColumnType.shield))
+            this.bag.addItem(new Equipment(ItemTier.bronze, ColumnType.sword))
+            this.bag.addItem(new Equipment(ItemTier.gold, ColumnType.sword))
+            this.bag.addItem(new Equipment(ItemTier.gold, ColumnType.trinket))
+            this.bag.addItem(new Equipment(ItemTier.gold, ColumnType.sword))
         }
 
         this.current = this.getUpdatedStats(this.attributes)

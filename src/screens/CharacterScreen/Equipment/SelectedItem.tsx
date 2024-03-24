@@ -21,7 +21,7 @@ export const SelectedItem: React.FC<SelectedItemProps> = ({ item }) => {
     return (
         <Surface style={{ flex: 1, borderRadius: 20, padding: 10, alignItems: "center", gap: 5, position: "relative" }} elevation={5}>
             <IconButton
-                onPress={() => (item.favorite = !item)}
+                onPress={() => (item.favorite = !item.favorite)}
                 icon={item.favorite ? "star" : "star-outline"}
                 iconColor={colors.stamina}
                 style={{ position: "absolute", right: 0 }}

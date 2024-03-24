@@ -17,7 +17,7 @@ export const BagContainer: React.FC<BagProps> = ({ selectedItem, onPress }) => {
     return (
         <Surface style={{ flex: 1 }}>
             <FlatList
-                data={player.bag.items.sort((a, b) => b.row - a.row).sort((a, b) => (a.favorite ? -1 : 1))}
+                data={player.bag.items.sort((a, b) => (a.favorite === b.favorite ? b.row - a.row : (b.favorite ? 1 : 0) - (a.favorite ? 1 : 0)))}
                 numColumns={3}
                 renderItem={({ item }) => <ItemSprite item={item} onPress={onPress} selectedItem={selectedItem} />}
                 columnWrapperStyle={{ gap: 10 }}
