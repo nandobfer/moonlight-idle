@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Surface, Text } from "react-native-paper"
 import { usePlayer } from "../../../hooks/usePlayer"
 import { View } from "react-native"
@@ -18,6 +18,10 @@ export const EquipmentContainer: React.FC<EquipmentProps> = ({}) => {
     const onItemPress = (item: Equipment | Item) => {
         setSelectedItem((equip) => (equip == item ? null : item))
     }
+
+    useEffect(() => {
+        setSelectedItem(null)
+    }, [player])
 
     return (
         <Surface style={{ flex: 0.7, borderRadius: 20, flexDirection: "row", gap: 10 }}>
