@@ -7,6 +7,7 @@ import { Dummy } from "../Enemy/Dummy"
 import { Monster } from "../Enemy/Monster"
 import { Bag } from "../Item/Bag"
 import { ColumnType, Equipment, ItemTier } from "../Item/Equipment"
+import constants from "expo-constants"
 import { equipments } from "../Item/items"
 
 export type PlayerData = WithoutFunctions<Player>
@@ -103,7 +104,7 @@ export class Player {
 
     save() {
         console.log("saving")
-        AsyncStorage.setItem("player", JSON.stringify(this))
+        AsyncStorage.setItem(`player:${constants.expoConfig?.version}`, JSON.stringify(this))
     }
 
     attack(exp_multiplier: number) {

@@ -2,6 +2,7 @@ import { createContext, useCallback, useEffect, useState } from "react"
 import React from "react"
 import { Player } from "../class/Player/Player"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import constants from "expo-constants"
 
 interface PlayerContextValue {
     player: Player | null
@@ -26,7 +27,7 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     }
 
     const loadPlayer = async () => {
-        const data = await AsyncStorage.getItem("player")
+        const data = await AsyncStorage.getItem(`player:${constants.expoConfig?.version}`)
         // console.log(data)
         if (data) {
             const player_data: Player = JSON.parse(data)
@@ -41,7 +42,7 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     }
 
     const resetPlayer = useCallback(async () => {
-        await AsyncStorage.setItem("player", "null")
+        await AsyncStorage.setItem(`player:${constants.expoConfig?.version}`, "null")
         setPlayer(new Player(reRender))
         reRender()
         setTimeout(() => player?.save(), 500)
