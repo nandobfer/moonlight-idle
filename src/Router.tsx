@@ -35,12 +35,14 @@ export const Routes: React.FC<RoutesProps> = ({}) => {
     const handleIdle = async () => {
         try {
             const idle_storage = await AsyncStorage.getItem("idle")
-            const idle = Number(idle_storage)
-            const seconds = player.handleIdle(idle)
+            if (idle_storage) {
+                const closed_at = Number(idle_storage)
+                const seconds = player.handleIdle(closed_at)
+            }
+            await AsyncStorage.setItem("idle", "")
             // snackbar(
             //     `you was idle for ${Math.floor(seconds / 60 / 60)} hours, ${Math.floor(seconds / 60)} minutes and ${Math.floor(seconds)} seconds`
             // )
-            await AsyncStorage.setItem("idle", "0")
         } catch (error) {
             console.log(error)
         }

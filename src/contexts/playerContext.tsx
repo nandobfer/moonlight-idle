@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, useCallback, useEffect, useState } from "react"
 import React from "react"
 import { Player } from "../class/Player/Player"
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -27,6 +27,7 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
 
     const loadPlayer = async () => {
         const data = await AsyncStorage.getItem("player")
+        // console.log(data)
         if (data) {
             const player_data: Player = JSON.parse(data)
             try {
@@ -39,14 +40,15 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         }
     }
 
-    const resetPlayer = () => {
+    const resetPlayer = useCallback(async () => {
+        await AsyncStorage.setItem("player", "null")
         setPlayer(new Player(reRender))
         reRender()
         setTimeout(() => player?.save(), 500)
-    }
+    }, [player])
 
     useEffect(() => {
-        console.log({ player })
+        // console.log({ player })
         const exp_interval = setInterval(() => {
             player?.addExp()
         }, 500)

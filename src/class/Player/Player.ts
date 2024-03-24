@@ -102,6 +102,7 @@ export class Player {
     }
 
     save() {
+        console.log("saving")
         AsyncStorage.setItem("player", JSON.stringify(this))
     }
 
