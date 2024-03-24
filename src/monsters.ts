@@ -21,7 +21,7 @@ export const monsters: { [key: string]: MonsterData } = {
         name: "bat",
         max_level: 5,
         attack_power: 5,
-        attack_speed: 0.8,
+        attack_speed: 0.85,
         health: 70,
         gold_base: 10,
         spritesheet: require("../assets/game/monsters/bat/spritesheet.png"),
