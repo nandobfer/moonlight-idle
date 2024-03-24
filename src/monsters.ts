@@ -7,7 +7,7 @@ export const monsters: { [key: string]: MonsterData } = {
         max_level: 3,
         attack_power: 3,
         attack_speed: 0.5,
-        health: 85,
+        health: 95,
         gold_base: 3,
         spritesheet: require("../assets/game/monsters/rat/spritesheet.png"),
         drops: [
@@ -21,7 +21,7 @@ export const monsters: { [key: string]: MonsterData } = {
         name: "bat",
         max_level: 5,
         attack_power: 5,
-        attack_speed: 0.85,
+        attack_speed: 0.9,
         health: 70,
         gold_base: 10,
         spritesheet: require("../assets/game/monsters/bat/spritesheet.png"),
@@ -40,7 +40,7 @@ export const monsters: { [key: string]: MonsterData } = {
         attack_power: 5,
         attack_speed: 0.4,
         gold_base: 50,
-        health: 200,
+        health: 220,
         spritesheet: require("../assets/game/monsters/slime/spritesheet.png"),
         drops: [
             { tier: ItemTier.bronze, column: ColumnType.sword, chance: 5 },
@@ -54,7 +54,7 @@ export const monsters: { [key: string]: MonsterData } = {
         attack_power: 12,
         attack_speed: 0.8,
         gold_base: 100,
-        health: 140,
+        health: 165,
         spritesheet: require("../assets/game/monsters/goblin/spritesheet.png"),
         drops: [
             { tier: ItemTier.bronze, column: ColumnType.sword, chance: 8 },
