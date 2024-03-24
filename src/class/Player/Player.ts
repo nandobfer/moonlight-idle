@@ -90,10 +90,17 @@ export class Player {
             this.points = data.points
             this.dummy = new Dummy(data.dummy.level) || new Dummy(1)
             this.tower_level = data.tower_level || 1
-            this.bag = new Bag(data.bag) || new Bag({ items: [] })
+            this.bag = new Bag({ items: [] })
             this.equipments = data.equipments.map((equip) => new Equipment(equip.tier, equip.column, { ...equip, equiped: true }))
             this.temp_attributes = data.temp_attributes
+
             if (data.weapon) this.weapon = new Equipment(data.weapon.tier, data.weapon.column, data.weapon)
+
+            data.bag.items.forEach((loaded) => {
+                const equip = loaded as Equipment
+                const item = new Equipment(equip.tier, equip.column, equip)
+                this.bag.addItem(item)
+            })
         } else {
             this.equipItem(new Equipment(ItemTier.wooden, ColumnType.sword))
         }
