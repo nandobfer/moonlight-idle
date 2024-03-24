@@ -15,7 +15,7 @@ export const equipments: { [tier: number]: { [column: number]: EquipmentData } }
             ],
             stats: [
                 { key: "attack_power", value: [1, 2] },
-                { key: "critical_chance", value: [1, 5] },
+                { key: "critical_chance", value: [0, 5] },
             ],
         },
         [5]: {
@@ -52,7 +52,7 @@ export const equipments: { [tier: number]: { [column: number]: EquipmentData } }
             ],
             stats: [
                 { key: "attack_power", value: [5, 10] },
-                { key: "critical_chance", value: [1, 10] },
+                { key: "critical_chance", value: [0, 10] },
             ],
         },
         [5]: {
@@ -72,7 +72,7 @@ export const equipments: { [tier: number]: { [column: number]: EquipmentData } }
                 { key: "strenght", value: [0, 10] },
             ],
             stats: [
-                { key: "critical_chance", value: [1, 10] },
+                { key: "critical_chance", value: [0, 10] },
                 { key: "attack_power", value: [0, 10] },
             ],
         },
