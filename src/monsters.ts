@@ -35,6 +35,23 @@ export const monsters: { [key: string]: MonsterData } = {
         ],
     },
     [3]: {
+        name: "turnip",
+        max_level: 50,
+        attack_power: 5,
+        attack_speed: 0.6,
+        gold_base: 10,
+        health: 150,
+        spritesheet: require("../assets/game/monsters/turnip/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.wooden, column: ColumnType.sword, chance: 15 },
+            { tier: ItemTier.wooden, column: ColumnType.shield, chance: 15 },
+            { tier: ItemTier.wooden, column: ColumnType.trinket, chance: 15 },
+            { tier: ItemTier.bronze, column: ColumnType.sword, chance: 5 },
+            { tier: ItemTier.bronze, column: ColumnType.shield, chance: 5 },
+            { tier: ItemTier.bronze, column: ColumnType.trinket, chance: 5 },
+        ],
+    },
+    [4]: {
         name: "slime",
         max_level: 5,
         attack_power: 8,
@@ -48,10 +65,24 @@ export const monsters: { [key: string]: MonsterData } = {
             { tier: ItemTier.bronze, column: ColumnType.trinket, chance: 8 },
         ],
     },
-    [4]: {
+    [5]: {
+        name: "crab",
+        max_level: 50,
+        attack_power: 10,
+        attack_speed: 0.3,
+        gold_base: 50,
+        health: 300,
+        spritesheet: require("../assets/game/monsters/crab/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.bronze, column: ColumnType.sword, chance: 8 },
+            { tier: ItemTier.bronze, column: ColumnType.shield, chance: 8 },
+            { tier: ItemTier.bronze, column: ColumnType.trinket, chance: 8 },
+        ],
+    },
+    [6]: {
         name: "goblin",
         max_level: 10,
-        attack_power: 12,
+        attack_power: 18,
         attack_speed: 0.8,
         gold_base: 100,
         health: 165,
@@ -65,7 +96,7 @@ export const monsters: { [key: string]: MonsterData } = {
             { tier: ItemTier.iron, column: ColumnType.trinket, chance: 5 },
         ],
     },
-    [5]: {
+    [7]: {
         name: "wolf",
         max_level: 15,
         attack_power: 30,
@@ -79,11 +110,42 @@ export const monsters: { [key: string]: MonsterData } = {
             { tier: ItemTier.iron, column: ColumnType.trinket, chance: 8 },
         ],
     },
-    [6]: {
+    [11]: {
+        name: "murloc",
+        max_level: 50,
+        attack_power: 25,
+        attack_speed: 0.7,
+        gold_base: 250,
+        health: 500,
+        spritesheet: require("../assets/game/monsters/murloc/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.iron, column: ColumnType.sword, chance: 8 },
+            { tier: ItemTier.iron, column: ColumnType.shield, chance: 8 },
+            { tier: ItemTier.iron, column: ColumnType.trinket, chance: 8 },
+        ],
+    },
+    [12]: {
+        name: "gnoll",
+        max_level: 50,
+        attack_power: 35,
+        attack_speed: 0.7,
+        gold_base: 500,
+        health: 750,
+        spritesheet: require("../assets/game/monsters/gnoll/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.iron, column: ColumnType.sword, chance: 15 },
+            { tier: ItemTier.iron, column: ColumnType.shield, chance: 15 },
+            { tier: ItemTier.iron, column: ColumnType.trinket, chance: 15 },
+            { tier: ItemTier.steel, column: ColumnType.sword, chance: 5 },
+            { tier: ItemTier.steel, column: ColumnType.shield, chance: 5 },
+            { tier: ItemTier.steel, column: ColumnType.trinket, chance: 5 },
+        ],
+    },
+    [13]: {
         name: "skeleton",
         max_level: 25,
-        attack_power: 40,
-        attack_speed: 0.2,
+        attack_power: 50,
+        attack_speed: 0.5,
         gold_base: 500,
         health: 1200,
         spritesheet: require("../assets/game/monsters/skeleton/spritesheet.png"),
@@ -96,14 +158,14 @@ export const monsters: { [key: string]: MonsterData } = {
             { tier: ItemTier.steel, column: ColumnType.trinket, chance: 5 },
         ],
     },
-    [7]: {
-        name: "werewolf",
+    [14]: {
+        name: "troll",
         max_level: 50,
-        attack_power: 50,
-        attack_speed: 1,
+        attack_power: 75,
+        attack_speed: 0.3,
         gold_base: 1500,
-        health: 750,
-        spritesheet: require("../assets/game/monsters/werewolf/spritesheet.png"),
+        health: 2000,
+        spritesheet: require("../assets/game/monsters/troll/spritesheet.png"),
         drops: [
             { tier: ItemTier.steel, column: ColumnType.sword, chance: 15 },
             { tier: ItemTier.steel, column: ColumnType.shield, chance: 15 },
@@ -113,4 +175,41 @@ export const monsters: { [key: string]: MonsterData } = {
             { tier: ItemTier.dark_iron, column: ColumnType.trinket, chance: 5 },
         ],
     },
+    [15]: {
+        name: "kobold",
+        max_level: 50,
+        attack_power: 65,
+        attack_speed: 0.7,
+        gold_base: 1500,
+        health: 1750,
+        spritesheet: require("../assets/game/monsters/kobold/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.dark_iron, column: ColumnType.sword, chance: 8 },
+            { tier: ItemTier.dark_iron, column: ColumnType.shield, chance: 8 },
+            { tier: ItemTier.dark_iron, column: ColumnType.trinket, chance: 8 },
+        ],
+    },
+    [16]: {
+        name: "werewolf",
+        max_level: 50,
+        attack_power: 100,
+        attack_speed: 0.6,
+        gold_base: 1500,
+        health: 3000,
+        spritesheet: require("../assets/game/monsters/werewolf/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.dark_iron, column: ColumnType.sword, chance: 15 },
+            { tier: ItemTier.dark_iron, column: ColumnType.shield, chance: 15 },
+            { tier: ItemTier.dark_iron, column: ColumnType.trinket, chance: 15 },
+            { tier: ItemTier.gold, column: ColumnType.sword, chance: 5 },
+            { tier: ItemTier.gold, column: ColumnType.shield, chance: 5 },
+            { tier: ItemTier.gold, column: ColumnType.trinket, chance: 5 },
+        ],
+    },
+    
+    
+    
+    
+    
+    
 }
