@@ -15,7 +15,7 @@ export const TrainingScreen: React.FC<{}> = () => {
 
     const router = useRouter()
 
-    return router.route.key != "fight" ? (
+    return router.route.key == "home" ? (
         <Surface elevation={0} style={{ flex: 1, position: "relative", justifyContent: "center", alignItems: "center", padding: 20 }}>
             {/* <Image source={assets.images.dummy[1]} style={{ width: 300, height: 400 }} /> */}
             <SpriteSheet
