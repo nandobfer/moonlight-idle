@@ -50,9 +50,13 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         const exp_interval = setInterval(() => {
             player?.addExp()
         }, 500)
+        const save_interval = setInterval(() => {
+            player?.save()
+        }, 60 * 1000)
 
         return () => {
             clearInterval(exp_interval)
+            clearInterval(save_interval)
         }
     }, [player])
 

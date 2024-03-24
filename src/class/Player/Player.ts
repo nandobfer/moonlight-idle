@@ -133,7 +133,6 @@ export class Player {
             this.levelUp()
         }
 
-        this.save()
         this.render()
     }
 
@@ -154,6 +153,7 @@ export class Player {
         this.stats.attack_power += 0.2
         this.stats.max_health += 1
 
+        this.save()
         this.updateAttributes(this.attributes)
     }
 
@@ -215,7 +215,6 @@ export class Player {
 
     setNewDummy(dummy: Dummy) {
         this.dummy = dummy
-        this.save()
     }
 
     killedTowerEnemy(enemy: Monster) {

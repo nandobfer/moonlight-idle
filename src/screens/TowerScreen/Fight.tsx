@@ -114,6 +114,7 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                     setTimeout(() => {
                         setFightResult(true)
                         setFighting(false)
+                        player.save()
                     }, 1000)
                 },
             })
