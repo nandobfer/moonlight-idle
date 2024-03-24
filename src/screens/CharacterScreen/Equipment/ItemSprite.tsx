@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react"
-import { Surface, Text } from "react-native-paper"
+import { Icon, Surface, Text } from "react-native-paper"
 import { Equipment } from "../../../class/Item/Equipment"
 import SpriteSheet from "rn-sprite-sheet"
 import assets from "../../../assets"
 import { equipments } from "../../../class/Item/items"
-import { Pressable } from "react-native"
+import { Pressable, View } from "react-native"
 import { Item } from "../../../class/Item/Item"
+import { colors } from "../../../style/colors"
 
 interface ItemSpriteProps {
     item: Equipment | Item
@@ -32,7 +33,7 @@ export const ItemSprite: React.FC<ItemSpriteProps> = ({ item, selectedItem, onPr
     }, [item])
 
     return (
-        <Pressable onPress={() => (onPress ? onPress(item) : null)}>
+        <Pressable onPress={() => (onPress ? onPress(item) : null)} style={{ position: "relative" }}>
             <Surface elevation={selectedItem == item ? 5 : 2} style={{ borderRadius: 20 }}>
                 <SpriteSheet
                     ref={sprite}
@@ -44,6 +45,11 @@ export const ItemSprite: React.FC<ItemSpriteProps> = ({ item, selectedItem, onPr
                     onLoad={() => sprite.current?.play({ type: `${item.row}:${item.column}`, fps: 1, loop: true })}
                 />
             </Surface>
+            {onPress && (
+                <View style={{ position: "absolute", left: 5, top: 5 }}>
+                    <Icon source={(item as Equipment).favorite ? "star" : "star-outline"} size={15} color={colors.stamina} />
+                </View>
+            )}
         </Pressable>
     )
 }
