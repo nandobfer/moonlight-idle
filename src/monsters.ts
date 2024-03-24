@@ -7,7 +7,7 @@ export const monsters: { [key: string]: MonsterData } = {
         max_level: 3,
         attack_power: 3,
         attack_speed: 0.5,
-        health: 90,
+        health: 85,
         gold_base: 3,
         spritesheet: require("../assets/game/monsters/rat/spritesheet.png"),
         drops: [
@@ -22,7 +22,7 @@ export const monsters: { [key: string]: MonsterData } = {
         max_level: 5,
         attack_power: 6,
         attack_speed: 0.7,
-        health: 80,
+        health: 75,
         gold_base: 10,
         spritesheet: require("../assets/game/monsters/bat/spritesheet.png"),
         drops: [
