@@ -91,7 +91,7 @@ export class Player {
             this.dummy = new Dummy(data.dummy.level) || new Dummy(1)
             this.tower_level = data.tower_level || 1
             this.bag = new Bag(data.bag) || new Bag({ items: [] })
-            this.equipments = data.equipments.map((equip) => new Equipment(equip.tier, equip.column, equip))
+            this.equipments = data.equipments.map((equip) => new Equipment(equip.tier, equip.column, { ...equip, equiped: true }))
             this.temp_attributes = data.temp_attributes
             if (data.weapon) this.weapon = new Equipment(data.weapon.tier, data.weapon.column, data.weapon)
         } else {
