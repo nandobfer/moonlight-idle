@@ -37,7 +37,7 @@ export const monsters: { [key: string]: MonsterData } = {
     [3]: {
         name: "slime",
         max_level: 5,
-        attack_power: 5,
+        attack_power: 8,
         attack_speed: 0.4,
         gold_base: 50,
         health: 220,
