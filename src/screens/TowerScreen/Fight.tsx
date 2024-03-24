@@ -139,7 +139,7 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                             {damages.map((item) => {
                                 return (
                                     <Text variant="bodyLarge" style={{ color: colors.stamina, top: item.top, left: item.left }} key={item.key}>
-                                        {item.damage}
+                                        {Math.round(item.damage)}
                                     </Text>
                                 )
                             })}
