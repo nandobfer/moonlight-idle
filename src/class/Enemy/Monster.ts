@@ -113,6 +113,7 @@ export class Monster extends Enemy {
             const roll = Math.random() * 100
             if (roll <= drop.chance) {
                 items.push(new Equipment(drop.tier, drop.column))
+                console.log({ roll, chance: drop.chance })
             }
         })
 

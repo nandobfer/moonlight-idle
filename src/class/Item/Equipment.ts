@@ -39,7 +39,7 @@ export interface EquipmentData {
     stats: { key: keyof Stats; value: [number, number] }[]
 }
 
-export type EquipmentForm = Omit<WithoutFunctions<Equipment>, "attributes" | "stats" | "equiped">
+export type EquipmentForm = WithoutFunctions<Equipment>
 
 export class Equipment extends Item {
     attributes: { key: keyof Attributes; value: number }[] = []
@@ -48,20 +48,25 @@ export class Equipment extends Item {
     data: EquipmentData
     tier: ItemTier
 
-    constructor(tier: ItemTier, column: ColumnType) {
+    constructor(tier: ItemTier, column: ColumnType, load?: EquipmentForm) {
         const data = equipments[tier][column]
         super({ ...data, row: tier, column })
         this.tier = tier
         this.data = data
 
-        data.attributes.forEach((attr) => {
-            const value = Math.round(Math.random() * (attr.value[1] - attr.value[0]) + attr.value[0])
-            this.attributes.push({ key: attr.key, value })
-        })
+        if (load) {
+            this.attributes = load.attributes
+            this.stats = load.stats
+        } else {
+            data.attributes.forEach((attr) => {
+                const value = Math.round(Math.random() * (attr.value[1] - attr.value[0]) + attr.value[0])
+                this.attributes.push({ key: attr.key, value })
+            })
 
-        data.stats.forEach((stat) => {
-            const value = Math.random() * (stat.value[1] - stat.value[0]) + stat.value[0]
-            this.stats.push({ key: stat.key, value })
-        })
+            data.stats.forEach((stat) => {
+                const value = Math.random() * (stat.value[1] - stat.value[0]) + stat.value[0]
+                this.stats.push({ key: stat.key, value })
+            })
+        }
     }
 }

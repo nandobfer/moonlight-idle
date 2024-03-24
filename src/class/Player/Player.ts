@@ -88,12 +88,12 @@ export class Player {
             this.stats = data.stats
             this.current = data.current
             this.points = data.points
-            this.dummy = data.dummy || new Dummy(1)
+            this.dummy = new Dummy(data.dummy.level) || new Dummy(1)
             this.tower_level = data.tower_level || 1
-            this.bag = data.bag || new Bag({ items: [] })
+            this.bag = new Bag(data.bag) || new Bag({ items: [] })
             this.equipments = data.equipments
-            this.weapon = data.weapon
             this.temp_attributes = data.temp_attributes
+            if (data.weapon) this.weapon = new Equipment(data.weapon.tier, data.weapon.column, data.weapon)
         } else {
             this.equipItem(new Equipment(ItemTier.wooden, ColumnType.sword))
         }

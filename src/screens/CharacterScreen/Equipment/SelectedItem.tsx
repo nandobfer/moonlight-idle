@@ -13,7 +13,6 @@ interface SelectedItemProps {
 
 export const SelectedItem: React.FC<SelectedItemProps> = ({ item }) => {
     const player = usePlayer()
-    const equipment = item as Equipment
 
     useEffect(() => {
         console.log(item)
@@ -22,24 +21,24 @@ export const SelectedItem: React.FC<SelectedItemProps> = ({ item }) => {
     return (
         <Surface style={{ flex: 1, borderRadius: 20, padding: 10, alignItems: "center", gap: 5, position: "relative" }} elevation={5}>
             <IconButton
-                onPress={() => (equipment.favorite = !equipment.favorite)}
-                icon={equipment.favorite ? "star" : "star-outline"}
+                onPress={() => (item.favorite = !item)}
+                icon={item.favorite ? "star" : "star-outline"}
                 iconColor={colors.stamina}
                 style={{ position: "absolute", right: 0 }}
             />
             <ItemSprite item={item} big />
             <Text>{item.name}</Text>
 
-            {<ItemAttributesContainer item={equipment} />}
-            {
+            {item instanceof Equipment && <ItemAttributesContainer item={item} />}
+            {item instanceof Equipment && (
                 <Button
                     style={{ marginTop: "auto", width: "100%" }}
                     mode="contained"
-                    onPress={() => (equipment.equiped ? player.unequipItem(equipment) : player.equipItem(equipment))}
+                    onPress={() => (item.equiped ? player.unequipItem(item) : player.equipItem(item))}
                 >
-                    {equipment.equiped ? "unequip" : "equip"}
+                    {item.equiped ? "unequip" : "equip"}
                 </Button>
-            }
+            )}
         </Surface>
     )
 }
