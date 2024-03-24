@@ -20,24 +20,28 @@ export const AttributesContainer: React.FC<AttributesContainerProps> = ({}) => {
                 color={colors.strength}
                 name="strenght"
                 value={player.attributes.strenght}
+                bonus_value={player.temp_attributes.strenght}
                 onChange={(value) => changeAttribute("strenght", value)}
             />
             <AttributeInput
                 color={colors.dexterity}
                 name="dexterity"
                 value={player.attributes.dexterity}
+                bonus_value={player.temp_attributes.dexterity}
                 onChange={(value) => changeAttribute("dexterity", value)}
             />
             <AttributeInput
                 color={colors.intelligence}
                 name="inteligence"
                 value={player.attributes.inteligence}
+                bonus_value={player.temp_attributes.inteligence}
                 onChange={(value) => changeAttribute("inteligence", value)}
             />
             <AttributeInput
                 color={colors.stamina}
                 name="stamina"
                 value={player.attributes.stamina}
+                bonus_value={player.temp_attributes.stamina}
                 onChange={(value) => changeAttribute("stamina", value)}
             />
         </>

@@ -21,6 +21,7 @@ const assets = {
     },
 
     spritesheets: {
+        items: require("../assets/items/spritesheet.png"),
         attack: {
             normal: {
                 [1]: { source: require("../assets/spritesheet/slashes/slash1.png"), columns: 4, rows: 1 },

@@ -7,6 +7,8 @@ export interface Stats {
     critical_multiplier: number
     health: number
     mana: number
+    max_health: number
+    max_mana: number
     armor: number
     kills: number
     idle: number

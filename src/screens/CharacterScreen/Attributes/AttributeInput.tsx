@@ -9,16 +9,16 @@ interface AttributeInputProps {
     onChange: (value: number) => void
     color: string
     name: string
+    bonus_value: number
 }
 
-export const AttributeInput: React.FC<AttributeInputProps> = ({ value, onChange, color, name }) => {
+export const AttributeInput: React.FC<AttributeInputProps> = ({ value, onChange, color, name, bonus_value }) => {
     const button_size = 10
     const player = usePlayer()
 
     const handleChange = (sum: number) => {
         onChange(sum)
         player.points.attributes += sum * -1
-        player.render()
     }
 
     return (
@@ -26,7 +26,7 @@ export const AttributeInput: React.FC<AttributeInputProps> = ({ value, onChange,
             <Text>{name}</Text>
             <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
                 <IconButton mode="contained" onPress={() => handleChange(-1)} disabled={value == 0} icon={"minus"} size={button_size} />
-                <Text style={{ width: 50, textAlign: "center" }}>{value}</Text>
+                <Text style={{ width: 50, textAlign: "center" }}>{value + bonus_value}</Text>
                 <IconButton mode="contained" onPress={() => handleChange(1)} disabled={!player.points.attributes} icon={"plus"} size={button_size} />
             </View>
         </Surface>

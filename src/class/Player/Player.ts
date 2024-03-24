@@ -5,6 +5,9 @@ import { Stats } from "../../types/player/stats"
 import { fixedNumber } from "../../tools/fixedNumber"
 import { Dummy } from "../Enemy/Dummy"
 import { Monster } from "../Enemy/Monster"
+import { Bag } from "../Item/Bag"
+import { ColumnType, Equipment, ItemTier } from "../Item/Equipment"
+import { equipments } from "../Item/items"
 
 export type PlayerData = WithoutFunctions<Player>
 
@@ -13,6 +16,9 @@ export class Player {
     experience: number = 0
     coin: number = 0
     tower_level = 1
+    bag = new Bag({ items: [] })
+    equipments: Equipment[] = []
+    weapon: Equipment | null = null
 
     stats: Stats = {
         armor: 0,
@@ -23,7 +29,9 @@ export class Player {
         critical_chance: 10,
         critical_multiplier: 2,
         health: 10,
+        max_health: 10,
         mana: 10,
+        max_mana: 10,
         kills: 0,
         idle: 0,
     }
@@ -38,10 +46,19 @@ export class Player {
         critical_multiplier: 2,
         health: 10,
         mana: 10,
+        max_health: 10,
+        max_mana: 10,
         dps: 0,
     }
 
     attributes: Attributes = {
+        dexterity: 0,
+        inteligence: 0,
+        stamina: 0,
+        strenght: 0,
+    }
+
+    temp_attributes: Attributes = {
         dexterity: 0,
         inteligence: 0,
         stamina: 0,
@@ -72,6 +89,23 @@ export class Player {
             this.points = data.points
             this.dummy = data.dummy || new Dummy(1)
             this.tower_level = data.tower_level || 1
+            this.bag = data.bag || new Bag({ items: [] })
+            this.equipments = data.equipments
+            this.weapon = data.weapon
+            this.temp_attributes = data.temp_attributes
+        } else {
+            this.equipItem(new Equipment(ItemTier.wooden, ColumnType.sword))
+            this.bag.items.push(new Equipment(ItemTier.dark_iron, ColumnType.trinket))
+            this.bag.items.push(new Equipment(ItemTier.dark_iron, ColumnType.trinket))
+            this.bag.items.push(new Equipment(ItemTier.bronze, ColumnType.trinket))
+            this.bag.items.push(new Equipment(ItemTier.bronze, ColumnType.sword))
+            this.bag.items.push(new Equipment(ItemTier.bronze, ColumnType.trinket))
+            this.bag.items.push(new Equipment(ItemTier.iron, ColumnType.trinket))
+            this.bag.items.push(new Equipment(ItemTier.iron, ColumnType.trinket))
+            this.bag.items.push(new Equipment(ItemTier.steel, ColumnType.trinket))
+            this.bag.items.push(new Equipment(ItemTier.gold, ColumnType.trinket))
+            this.bag.items.push(new Equipment(ItemTier.gold, ColumnType.sword))
+            this.bag.items.push(new Equipment(ItemTier.gold, ColumnType.sword))
         }
 
         this.current = this.getUpdatedStats(this.attributes)
@@ -128,11 +162,10 @@ export class Player {
             this.points.skills += quantity
         }
 
-        this.stats.attack_power += 0.5
-        this.stats.health += 1
+        this.stats.attack_power += 0.2
+        this.stats.max_health += 1
 
-        const current_health = this.current.health
-        this.current = { ...this.getUpdatedStats(this.attributes), health: current_health }
+        this.updateAttributes(this.attributes)
     }
 
     getUpdatedStats(attributes: Attributes) {
@@ -141,8 +174,8 @@ export class Player {
         stats.attack_power = fixedNumber(this.stats.attack_power + attributes.strenght * 0.5)
         stats.attack_speed = fixedNumber(this.stats.attack_speed + attributes.dexterity * 0.02)
         stats.critical_chance = fixedNumber(this.stats.critical_chance + attributes.dexterity * 0.1)
-        stats.health = fixedNumber(this.stats.health + attributes.stamina * 0.5)
-        stats.mana = fixedNumber(this.stats.mana + attributes.inteligence * 0.5)
+        stats.max_health = Math.floor(this.stats.max_health + attributes.stamina * 0.5)
+        stats.mana = Math.floor(this.stats.mana + attributes.inteligence * 0.5)
 
         stats.dps = stats.attack_power * stats.attack_speed * (stats.critical_chance / 100 + 1) * stats.critical_multiplier
 
@@ -151,7 +184,13 @@ export class Player {
 
     updateAttributes(data: Attributes) {
         this.attributes = data
-        this.current = { ...this.getUpdatedStats(data), health: this.current.health }
+        const total_attributes: Attributes = {
+            dexterity: data.dexterity + this.temp_attributes.dexterity || 0,
+            stamina: data.stamina + this.temp_attributes.stamina || 0,
+            inteligence: data.inteligence + this.temp_attributes.inteligence || 0,
+            strenght: data.strenght + this.temp_attributes.stamina || 0,
+        }
+        this.current = { ...this.getUpdatedStats(total_attributes), health: this.current.health }
 
         this.render()
     }
@@ -220,8 +259,60 @@ export class Player {
     }
 
     revive() {
-        this.current.health = this.stats.health
-        this.current.mana = this.stats.mana
+        this.current.health = this.current.max_health
+        this.current.mana = this.current.max_mana
         this.render()
+    }
+
+    equipItem(item: Equipment) {
+        console.log(`equipping ${item.name}`)
+        if (item.data.type == "acessory") {
+            if (this.equipments.includes(item)) {
+                return
+            }
+
+            if (this.equipments.length >= 2) {
+                return
+            }
+
+            this.equipments.push(item)
+        } else {
+            if (this.weapon) {
+                this.unequipItem(this.weapon)
+            }
+            this.weapon = item
+        }
+
+        item.stats.forEach((attribute) => {
+            this.stats[attribute.key] += attribute.value
+        })
+
+        item.attributes.forEach((attribute) => {
+            this.temp_attributes[attribute.key] += attribute.value
+        })
+
+        item.equiped = true
+        this.bag.items = this.bag.items.filter((_item) => _item != item)
+        this.updateAttributes(this.attributes)
+    }
+
+    unequipItem(item: Equipment) {
+        if (item.data.type == "acessory") {
+            this.equipments = this.equipments.filter((equip) => equip != item)
+        } else {
+            this.weapon = null
+        }
+
+        item.stats.forEach((attribute) => {
+            this.stats[attribute.key] -= attribute.value
+        })
+
+        item.attributes.forEach((attribute) => {
+            this.temp_attributes[attribute.key] -= attribute.value
+        })
+
+        item.equiped = false
+        this.bag.items.push(item)
+        this.updateAttributes(this.attributes)
     }
 }
