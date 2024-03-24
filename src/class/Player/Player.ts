@@ -91,7 +91,7 @@ export class Player {
             this.dummy = new Dummy(data.dummy.level) || new Dummy(1)
             this.tower_level = data.tower_level || 1
             this.bag = new Bag({ items: [] })
-            this.equipments = data.equipments.map((equip) => new Equipment(equip.tier, equip.column, { ...equip, equiped: true }))
+            this.equipments = data.equipments.map((equip) => new Equipment(equip.tier, equip.column, equip))
             this.temp_attributes = data.temp_attributes
 
             if (data.weapon) this.weapon = new Equipment(data.weapon.tier, data.weapon.column, data.weapon)
@@ -103,15 +103,6 @@ export class Player {
             })
         } else {
             this.equipItem(new Equipment(ItemTier.wooden, ColumnType.sword))
-            this.bag.addItem(new Equipment(ItemTier.wooden, ColumnType.sword))
-            this.bag.addItem(new Equipment(ItemTier.wooden, ColumnType.sword))
-            this.bag.addItem(new Equipment(ItemTier.wooden, ColumnType.sword))
-            this.bag.addItem(new Equipment(ItemTier.bronze, ColumnType.sword))
-            this.bag.addItem(new Equipment(ItemTier.bronze, ColumnType.shield))
-            this.bag.addItem(new Equipment(ItemTier.bronze, ColumnType.sword))
-            this.bag.addItem(new Equipment(ItemTier.gold, ColumnType.sword))
-            this.bag.addItem(new Equipment(ItemTier.gold, ColumnType.trinket))
-            this.bag.addItem(new Equipment(ItemTier.gold, ColumnType.sword))
         }
 
         this.current = this.getUpdatedStats(this.attributes)
@@ -304,6 +295,7 @@ export class Player {
         item.equiped = true
         this.bag.removeItem(item)
         this.updateAttributes(this.attributes)
+        this.save()
     }
 
     unequipItem(item: Equipment) {

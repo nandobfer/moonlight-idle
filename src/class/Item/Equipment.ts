@@ -57,6 +57,7 @@ export class Equipment extends Item {
         if (load) {
             this.attributes = load.attributes
             this.stats = load.stats
+            this.equiped = load.equiped
         } else {
             data.attributes.forEach((attr) => {
                 const value = Math.round(Math.random() * (attr.value[1] - attr.value[0]) + attr.value[0])
