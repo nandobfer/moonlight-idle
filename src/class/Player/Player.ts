@@ -151,8 +151,8 @@ export class Player {
             this.points.skills += quantity
         }
 
-        this.stats.attack_power += 0.2
-        this.stats.max_health += 1
+        this.stats.attack_power += 0.2 * quantity
+        this.stats.max_health += 1 * quantity
 
         this.save()
         this.updateAttributes(this.attributes)
