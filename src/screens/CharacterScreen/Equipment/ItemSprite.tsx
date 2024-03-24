@@ -45,9 +45,9 @@ export const ItemSprite: React.FC<ItemSpriteProps> = ({ item, selectedItem, onPr
                     onLoad={() => sprite.current?.play({ type: `${item.row}:${item.column}`, fps: 1, loop: true })}
                 />
             </Surface>
-            {onPress && (
+            {onPress && item.favorite && (
                 <View style={{ position: "absolute", left: 5, top: 5 }}>
-                    <Icon source={(item as Equipment).favorite ? "star" : "star-outline"} size={15} color={colors.stamina} />
+                    <Icon source={item.favorite ? "star" : "star-outline"} size={15} color={colors.stamina} />
                 </View>
             )}
         </Pressable>
