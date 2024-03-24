@@ -10,4 +10,12 @@ export class Bag {
     constructor(data: BagForm) {
         this.items = data.items
     }
+
+    addItem(item: Item) {
+        this.items.push(item)
+    }
+
+    removeItem(item: Item) {
+        this.items = this.items.filter((_item) => _item != item)
+    }
 }

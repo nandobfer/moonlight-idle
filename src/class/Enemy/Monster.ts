@@ -1,9 +1,10 @@
 import { ImageSource } from "expo-image"
 import { Enemy } from "./Enemy"
-import { MonsterAsset } from "../../types/monster_assets"
+import { MonsterData } from "../../types/monster_assets"
 import { Stats } from "../../types/player/stats"
 import { WithoutFunctions } from "../../types/helpers"
 import { monsters } from "../../monsters"
+import { Equipment } from "../Item/Equipment"
 
 export interface MonsterForm {
     level: number
@@ -20,7 +21,7 @@ export class Monster extends Enemy {
     name: string
     level: number
 
-    asset: MonsterAsset
+    data: MonsterData
 
     stats: MonsterStats
     health: number
@@ -33,7 +34,7 @@ export class Monster extends Enemy {
         this.level = data.level
 
         const asset = Monster.getAsset(data.level)
-        this.asset = asset
+        this.data = asset
         this.render = render
 
         this.name = asset.name
@@ -46,7 +47,7 @@ export class Monster extends Enemy {
     }
 
     static generateRandom(level: number, exp_multiplier: number) {
-        const possible_monsters: MonsterAsset[] = []
+        const possible_monsters: MonsterData[] = []
         Object.entries(monsters).forEach(([_, item]) => {
             if (item.max_level <= level) {
                 possible_monsters.push(item)
@@ -101,13 +102,21 @@ export class Monster extends Enemy {
     }
 
     drop() {
-        const min_coin = this.asset.gold_base * 0.6
-        const max_coin = this.asset.gold_base * 1.4
+        const min_coin = this.data.gold_base * 0.6
+        const max_coin = this.data.gold_base * 1.4
         const coin = Math.round(Math.random() * (max_coin - min_coin) + min_coin)
 
         const exp = Math.round(this.stats.health * 2 * this.exp_multiplier)
 
-        return { coin, exp }
+        const items: Equipment[] = []
+        this.data.drops.forEach((drop) => {
+            const roll = Math.random() * 100
+            if (roll <= drop.chance) {
+                items.push(new Equipment(drop.tier, drop.column))
+            }
+        })
+
+        return { coin, exp, items }
     }
 
     revive() {

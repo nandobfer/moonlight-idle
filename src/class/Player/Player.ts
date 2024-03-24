@@ -95,17 +95,6 @@ export class Player {
             this.temp_attributes = data.temp_attributes
         } else {
             this.equipItem(new Equipment(ItemTier.wooden, ColumnType.sword))
-            this.bag.items.push(new Equipment(ItemTier.dark_iron, ColumnType.trinket))
-            this.bag.items.push(new Equipment(ItemTier.dark_iron, ColumnType.trinket))
-            this.bag.items.push(new Equipment(ItemTier.bronze, ColumnType.trinket))
-            this.bag.items.push(new Equipment(ItemTier.bronze, ColumnType.sword))
-            this.bag.items.push(new Equipment(ItemTier.bronze, ColumnType.trinket))
-            this.bag.items.push(new Equipment(ItemTier.iron, ColumnType.trinket))
-            this.bag.items.push(new Equipment(ItemTier.iron, ColumnType.trinket))
-            this.bag.items.push(new Equipment(ItemTier.steel, ColumnType.trinket))
-            this.bag.items.push(new Equipment(ItemTier.gold, ColumnType.trinket))
-            this.bag.items.push(new Equipment(ItemTier.gold, ColumnType.sword))
-            this.bag.items.push(new Equipment(ItemTier.gold, ColumnType.sword))
         }
 
         this.current = this.getUpdatedStats(this.attributes)
@@ -240,6 +229,7 @@ export class Player {
         const drops = enemy.drop()
         this.coin += drops.coin
         this.stats.kills += 1
+        drops.items.forEach((item) => this.bag.addItem(item))
         this.accumulateExp(drops.exp)
 
         this.render()
@@ -248,8 +238,11 @@ export class Player {
     }
 
     takeHit(damage: number) {
-        if (damage < this.current.health) {
-            this.current.health -= damage
+        const mitigated_damage = (this.current.armor / 100) * damage
+        const effective_damage = damage - mitigated_damage
+
+        if (effective_damage < this.current.health) {
+            this.current.health -= effective_damage
         } else {
             this.current.health = 0
         }
@@ -292,7 +285,7 @@ export class Player {
         })
 
         item.equiped = true
-        this.bag.items = this.bag.items.filter((_item) => _item != item)
+        this.bag.removeItem(item)
         this.updateAttributes(this.attributes)
     }
 
@@ -312,7 +305,7 @@ export class Player {
         })
 
         item.equiped = false
-        this.bag.items.push(item)
+        this.bag.addItem(item)
         this.updateAttributes(this.attributes)
     }
 }

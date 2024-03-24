@@ -1,6 +1,7 @@
-import { MonsterAsset } from "./types/monster_assets"
+import { ColumnType, ItemTier } from "./class/Item/Equipment"
+import { MonsterData } from "./types/monster_assets"
 
-export const monsters: { [key: string]: MonsterAsset } = {
+export const monsters: { [key: string]: MonsterData } = {
     [1]: {
         name: "rat",
         max_level: 3,
@@ -9,6 +10,11 @@ export const monsters: { [key: string]: MonsterAsset } = {
         health: 75,
         gold_base: 3,
         spritesheet: require("../assets/game/monsters/rat/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.wooden, column: ColumnType.sword, chance: 3 },
+            { tier: ItemTier.wooden, column: ColumnType.shield, chance: 3 },
+            { tier: ItemTier.wooden, column: ColumnType.trinket, chance: 3 },
+        ],
     },
 
     [2]: {
@@ -19,6 +25,14 @@ export const monsters: { [key: string]: MonsterAsset } = {
         health: 60,
         gold_base: 10,
         spritesheet: require("../assets/game/monsters/bat/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.wooden, column: ColumnType.sword, chance: 5 },
+            { tier: ItemTier.wooden, column: ColumnType.shield, chance: 5 },
+            { tier: ItemTier.wooden, column: ColumnType.trinket, chance: 5 },
+            { tier: ItemTier.bronze, column: ColumnType.sword, chance: 1 },
+            { tier: ItemTier.bronze, column: ColumnType.shield, chance: 1 },
+            { tier: ItemTier.bronze, column: ColumnType.trinket, chance: 1 },
+        ],
     },
     [3]: {
         name: "slime",
@@ -28,6 +42,11 @@ export const monsters: { [key: string]: MonsterAsset } = {
         gold_base: 50,
         health: 150,
         spritesheet: require("../assets/game/monsters/slime/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.bronze, column: ColumnType.sword, chance: 3 },
+            { tier: ItemTier.bronze, column: ColumnType.shield, chance: 3 },
+            { tier: ItemTier.bronze, column: ColumnType.trinket, chance: 3 },
+        ],
     },
     [4]: {
         name: "goblin",
@@ -37,6 +56,14 @@ export const monsters: { [key: string]: MonsterAsset } = {
         gold_base: 100,
         health: 120,
         spritesheet: require("../assets/game/monsters/goblin/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.bronze, column: ColumnType.sword, chance: 5 },
+            { tier: ItemTier.bronze, column: ColumnType.shield, chance: 5 },
+            { tier: ItemTier.bronze, column: ColumnType.trinket, chance: 5 },
+            { tier: ItemTier.iron, column: ColumnType.sword, chance: 1 },
+            { tier: ItemTier.iron, column: ColumnType.shield, chance: 1 },
+            { tier: ItemTier.iron, column: ColumnType.trinket, chance: 1 },
+        ],
     },
     [5]: {
         name: "wolf",
@@ -46,6 +73,11 @@ export const monsters: { [key: string]: MonsterAsset } = {
         gold_base: 250,
         health: 200,
         spritesheet: require("../assets/game/monsters/wolf/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.iron, column: ColumnType.sword, chance: 3 },
+            { tier: ItemTier.iron, column: ColumnType.shield, chance: 3 },
+            { tier: ItemTier.iron, column: ColumnType.trinket, chance: 3 },
+        ],
     },
     [6]: {
         name: "skeleton",
@@ -55,6 +87,14 @@ export const monsters: { [key: string]: MonsterAsset } = {
         gold_base: 500,
         health: 500,
         spritesheet: require("../assets/game/monsters/skeleton/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.iron, column: ColumnType.sword, chance: 5 },
+            { tier: ItemTier.iron, column: ColumnType.shield, chance: 5 },
+            { tier: ItemTier.iron, column: ColumnType.trinket, chance: 5 },
+            { tier: ItemTier.steel, column: ColumnType.sword, chance: 1 },
+            { tier: ItemTier.steel, column: ColumnType.shield, chance: 1 },
+            { tier: ItemTier.steel, column: ColumnType.trinket, chance: 1 },
+        ],
     },
     [7]: {
         name: "werewolf",
@@ -64,5 +104,13 @@ export const monsters: { [key: string]: MonsterAsset } = {
         gold_base: 1500,
         health: 150,
         spritesheet: require("../assets/game/monsters/werewolf/spritesheet.png"),
+        drops: [
+            { tier: ItemTier.steel, column: ColumnType.sword, chance: 5 },
+            { tier: ItemTier.steel, column: ColumnType.shield, chance: 5 },
+            { tier: ItemTier.steel, column: ColumnType.trinket, chance: 5 },
+            { tier: ItemTier.dark_iron, column: ColumnType.sword, chance: 1 },
+            { tier: ItemTier.dark_iron, column: ColumnType.shield, chance: 1 },
+            { tier: ItemTier.dark_iron, column: ColumnType.trinket, chance: 1 },
+        ],
     },
 }

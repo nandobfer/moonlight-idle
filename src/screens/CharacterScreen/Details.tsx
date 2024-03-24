@@ -24,7 +24,7 @@ export const Details: React.FC<DetailsProps> = ({ attributes }) => {
                 <Text>level: {player.level}</Text>
                 <Text>health: {player.current.max_health}</Text>
                 <Text>mana: {player.current.max_mana}</Text>
-                <Text>armor: {player.current.armor}</Text>
+                <Text>armor: {Math.round(player.current.armor)}</Text>
                 <Text>idle: {formatTime(player.stats.idle)}</Text>
                 <Text>kills: {player.stats.kills}</Text>
             </View>

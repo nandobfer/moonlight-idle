@@ -11,6 +11,7 @@ import { IconStatusBar } from "../../components/IconStatusBar"
 import { SlashAnimation } from "../../components/SlashAnimation"
 import { Monster } from "../../class/Enemy/Monster"
 import SpriteSheet from "rn-sprite-sheet"
+import { Equipment } from "../../class/Item/Equipment"
 
 interface fightProps {
     level: number
@@ -29,7 +30,7 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
 
     const [damages, setDamages] = useState<{ key: number; damage: number; top: number; left: number }[]>([])
     const [fightResult, setFightResult] = useState(false)
-    const [drops, setDrops] = useState<{ coin: number; exp: number; advanced_tower: boolean }>()
+    const [drops, setDrops] = useState<{ coin: number; exp: number; advanced_tower: boolean; items: Equipment[] }>()
 
     const [fighting, setFighting] = useState(false)
 
@@ -145,7 +146,7 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
 
                     <SpriteSheet
                         ref={ref}
-                        source={enemy.asset.spritesheet}
+                        source={enemy.data.spritesheet}
                         columns={3}
                         rows={5}
                         animations={{
@@ -187,6 +188,9 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
                             <Surface style={{ padding: 10, gap: 5, borderRadius: 10 }}>
                                 <Text>coins: {drops.coin}</Text>
                                 <Text>exp: {drops.exp}</Text>
+                                {drops.items.map((item, index) => (
+                                    <Text key={`${index}:${item.name}`}>1x {item.name}</Text>
+                                ))}
                             </Surface>
                         </Dialog.Content>
                     )}

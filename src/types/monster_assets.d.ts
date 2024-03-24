@@ -1,4 +1,5 @@
 import { ImageSource } from "expo-image"
+import { ColumnType, ItemTier } from "../class/Item/Equipment"
 
 export interface ImageAsset {
     source: number
@@ -7,7 +8,7 @@ export interface ImageAsset {
     frames: number
 }
 
-export interface MonsterAsset {
+export interface MonsterData {
     name: string
     max_level: number
     health: number
@@ -15,4 +16,5 @@ export interface MonsterAsset {
     attack_speed: number
     gold_base: number
     spritesheet: number
+    drops: { tier: ItemTier; column: ColumnType; chance: number }[]
 }

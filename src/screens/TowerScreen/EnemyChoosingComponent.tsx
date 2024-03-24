@@ -1,13 +1,13 @@
 import React, { useRef } from "react"
 import { Button, Surface } from "react-native-paper"
-import { MonsterAsset } from "../../types/monster_assets"
+import { MonsterData } from "../../types/monster_assets"
 import { IconNumber } from "../../components/IconNumber"
 import { colors } from "../../style/colors"
 import { View } from "react-native"
 import SpriteSheet from "rn-sprite-sheet"
 
 interface EnemyChoosingComponentProps {
-    enemy: MonsterAsset
+    enemy: MonsterData
     id: string
     onPress: (level: number) => void
 }
