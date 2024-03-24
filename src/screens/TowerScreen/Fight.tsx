@@ -90,6 +90,8 @@ export const Fight: React.FC<fightProps> = ({ level, goBack }) => {
         if (!fighting) {
             player.revive()
             // enemy.revive()
+        } else {
+            setDrops(undefined)
         }
     }, [fighting])
 
