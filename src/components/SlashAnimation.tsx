@@ -35,7 +35,7 @@ const SlashSprite: React.FC<SlashSpriteProps> = ({ id, asset, sound, damage, cri
             sound.playAsync()
         }
         return () => {
-            sound.unloadAsync()
+            setTimeout(() => sound.unloadAsync(), 1000)
         }
     }, [])
 
