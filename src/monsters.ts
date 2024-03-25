@@ -110,7 +110,7 @@ export const monsters: { [key: string]: MonsterData } = {
             { tier: ItemTier.iron, column: ColumnType.trinket, chance: 8 },
         ],
     },
-    [11]: {
+    [8]: {
         name: "murloc",
         max_level: 50,
         attack_power: 25,
@@ -124,7 +124,7 @@ export const monsters: { [key: string]: MonsterData } = {
             { tier: ItemTier.iron, column: ColumnType.trinket, chance: 8 },
         ],
     },
-    [12]: {
+    [9]: {
         name: "gnoll",
         max_level: 50,
         attack_power: 35,
@@ -141,7 +141,7 @@ export const monsters: { [key: string]: MonsterData } = {
             { tier: ItemTier.steel, column: ColumnType.trinket, chance: 5 },
         ],
     },
-    [13]: {
+    [10]: {
         name: "skeleton",
         max_level: 25,
         attack_power: 50,
@@ -158,7 +158,7 @@ export const monsters: { [key: string]: MonsterData } = {
             { tier: ItemTier.steel, column: ColumnType.trinket, chance: 5 },
         ],
     },
-    [14]: {
+    [11]: {
         name: "troll",
         max_level: 50,
         attack_power: 75,
@@ -175,7 +175,7 @@ export const monsters: { [key: string]: MonsterData } = {
             { tier: ItemTier.dark_iron, column: ColumnType.trinket, chance: 5 },
         ],
     },
-    [15]: {
+    [12]: {
         name: "kobold",
         max_level: 50,
         attack_power: 65,
@@ -189,7 +189,7 @@ export const monsters: { [key: string]: MonsterData } = {
             { tier: ItemTier.dark_iron, column: ColumnType.trinket, chance: 8 },
         ],
     },
-    [16]: {
+    [13]: {
         name: "werewolf",
         max_level: 50,
         attack_power: 100,
